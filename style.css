@@ -473,10 +473,10 @@ section {
 
 .pain-img {
   width: 100%;
-  aspect-ratio: 3/4;
+  aspect-ratio: 1 / 1;        /* 3/4（縦長）→ 1/1（正方形）にして正円にする */
   object-fit: cover;
   filter: brightness(0.85);
-  border-radius: var(--radius-md);
+  border-radius: 50%;          /* 完全な丸（円形） */
 }
 
 .pain-text .section-label {
