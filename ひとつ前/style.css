@@ -1084,58 +1084,16 @@ footer {
   /* --- 悩みセクション：左ボーダーアイテムをコンパクトに --- */
   .pain-item { padding: 14px 12px; }
 
-  /* --- 商品説明：feature-cardのレイアウト調整（スクショに合わせて修正） --- */
-
-  /* product-featuresを1カラムに（カードを縦に並べる） */
-  .product-features {
-    grid-template-columns: 1fr;   /* PC：2列 → SP：1列 */
-    gap: 20px;                    /* カード間の余白を縮小 */
-    margin-bottom: 40px;
-  }
-
+  /* --- 商品説明：feature-cardのレイアウト調整 --- */
+  /* スマホでは画像とテキストを縦並びに */
   .feature-card {
-    /* 番号(01)を上に、「画像＋テキスト」を横並びで下に配置するため
-       grid を使って2行レイアウトにする */
-    display: grid;
-    grid-template-columns: 100px 1fr;  /* 左：画像エリア / 右：テキストエリア */
-    grid-template-rows: auto auto;     /* 上：番号行 / 下：画像とテキスト行 */
-    grid-template-areas:
-      "num  num"    /* 1行目：番号が全幅を占める */
-      "img  info";  /* 2行目：左に画像、右にテキスト */
-    gap: 8px 16px;                    /* 行間 8px、列間 16px */
-    padding: 20px;
-    align-items: start;
+    grid-template-columns: 1fr;    /* 横2列 → 縦1列 */
+    gap: 16px;
+    padding: 24px 20px;
   }
-
-  /* 番号（01 / 02 / 03）を1行目に配置 */
-  .feature-num {
-    grid-area: num;
-    font-size: 28px;   /* PC：36px → SP：28px に縮小 */
-    margin-bottom: 0;
-  }
-
-  /* 画像を2行目の左に配置 */
   .feature-img {
-    grid-area: img;
-    width: 100px;      /* 正方形の小さいサムネイル */
-    height: 100px;
-    object-fit: cover;
-  }
-
-  /* テキスト（見出し＋本文）を2行目の右に配置 */
-  .feature-info {
-    grid-area: info;
-  }
-
-  .feature-info h3 {
-    font-size: 15px;   /* PC：17px → SP：15px */
-    margin-bottom: 6px;
-    line-height: 1.5;  /* 改行が自然に見えるよう行間を調整 */
-  }
-
-  .feature-info p {
-    font-size: 12px;   /* PC：13px → SP：12px */
-    line-height: 1.8;
+    width: 80px;
+    height: 80px;
   }
 
   /* --- 使用シーン：3枚→スクロール式に変更 --- */

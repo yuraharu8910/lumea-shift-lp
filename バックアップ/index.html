@@ -3,10 +3,50 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- =============================================
+     SEO：タイトル・meta description・canonical
+     ============================================= -->
 <title>LUMEA SHIFT | 忙しくても、整える。</title>
+<meta name="description" content="忙しい日でも続けられる、1本で完結するオールインワン美容液「LUMEA SHIFT」。化粧水・美容液・乳液・クリームを1本に凝縮。回数縛りなし、初回¥1,980。">
+<!-- canonical：自分の正式URLを指定（重複ページによるSEE評価の分散を防ぐ） -->
+<link rel="canonical" href="https://lumea-shift.jp/">
+
+<!-- =============================================
+     ファビコン
+     favicon.ico と apple-touch-icon.png を
+     プロジェクトルートに配置してください
+     ============================================= -->
+<link rel="icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<!-- apple-touch-icon：iPhoneでホーム画面に追加したときのアイコン（180×180px推奨） -->
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+<!-- =============================================
+     OGP（Open Graph Protocol）
+     SNSでシェアされたときのカード表示用
+     ogp.jpg は 1200×630px で作成してください
+     ============================================= -->
+<meta property="og:title" content="LUMEA SHIFT | 忙しくても、整える。">
+<meta property="og:description" content="1本で完結するオールインワン美容液。回数縛りなし、初回¥1,980。">
+<meta property="og:image" content="https://lumea-shift.jp/images/ogp.jpg">
+<meta property="og:url" content="https://lumea-shift.jp/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="LUMEA SHIFT">
+<!-- Twitter（X）カード用 -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://lumea-shift.jp/images/ogp.jpg">
+
+<!-- =============================================
+     Webフォント読み込み
+     gstatic.com への preconnect を追加することで
+     フォントファイルの取得が速くなる
+     ============================================= -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Noto+Sans+JP:wght@300;400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -27,7 +67,10 @@
 <!-- ① FV（ファーストビュー） -->
 <!-- 背景に動画_2を使用：夜のベッドサイドシーン -->
 <section class="fv">
-  <video class="fv-video" autoplay muted loop playsinline>
+  <!-- poster：動画読み込み前・自動再生できない環境で表示されるサムネイル画像
+       images/fv-poster.jpg を用意してください（FVのキービジュアル画像が最適） -->
+  <video class="fv-video" autoplay muted loop playsinline
+         poster="images/fv-poster.jpg">
     <source src="videos/video01.mp4" type="video/mp4">
   </video>
   <div class="fv-overlay"></div>
@@ -71,14 +114,14 @@
               化粧水、美容液、乳液——疲れた夜に複数ステップは続かない
             </div>
           </div>
-          <div class="pain-item reveal" style="transition-delay: 0.1s">
+          <div class="pain-item reveal reveal--delay-1">
             <span class="pain-item-icon">⏰</span>
             <div class="pain-item-text">
               <strong>朝は時間がない</strong>
               義務感でやろうとするほど、スキンケアが重荷になっていく
             </div>
           </div>
-          <div class="pain-item reveal" style="transition-delay: 0.2s">
+          <div class="pain-item reveal reveal--delay-2">
             <span class="pain-item-icon">💸</span>
             <div class="pain-item-text">
               <strong>効果がわからないまま定期縛り</strong>
@@ -113,14 +156,15 @@
             <div style="font-family: var(--font-en); font-size: 36px; font-weight: 300; color: var(--accent);">1</div>
             <div style="font-size: 13px; margin-top: 4px;">本で完結</div>
           </div>
-          <div class="reveal" style="text-align: center; padding: 24px; background: white; transition-delay: 0.1s">
+          <div class="reveal reveal--delay-1" style="text-align: center; padding: 24px; background: white;">
             <div style="font-family: var(--font-en); font-size: 36px; font-weight: 300; color: var(--accent);">朝夜</div>
             <div style="font-size: 13px; margin-top: 4px;">どちらも使える</div>
           </div>
         </div>
       </div>
       <div class="solution-video-wrap reveal-right">
-        <video class="solution-video" autoplay muted loop playsinline>
+        <video class="solution-video" autoplay muted loop playsinline
+               poster="images/solution-poster.jpg">
           <source src="videos/video02.mp4" type="video/mp4">
         </video>
       </div>
@@ -135,10 +179,10 @@
       <span class="trust-item-price">¥1,980</span>
       <span class="trust-item-label">初回特別価格（税込）</span>
     </div>
-    <span class="trust-item-badge reveal" style="transition-delay:0.1s">回数縛りなし</span>
-    <span class="trust-item-badge reveal" style="transition-delay:0.15s">初回送料無料</span>
-    <span class="trust-item-badge reveal" style="transition-delay:0.2s">いつでも解約OK</span>
-    <span class="trust-item-badge reveal" style="transition-delay:0.25s">次回発送5日前まで解約可</span>
+    <span class="trust-item-badge reveal reveal--delay-1">回数縛りなし</span>
+    <span class="trust-item-badge reveal reveal--delay-2">初回送料無料</span>
+    <span class="trust-item-badge reveal reveal--delay-3">いつでも解約OK</span>
+    <span class="trust-item-badge reveal reveal--delay-4">次回発送5日前まで解約可</span>
   </div>
 </section>
 
@@ -157,14 +201,14 @@
           <p class="scene-card-text">疲れた夜はこれ1本。洗顔のあとにさっと。</p>
         </div>
       </div>
-      <div class="scene-card reveal" style="transition-delay: 0.1s">
+      <div class="scene-card reveal reveal--delay-1">
         <img src="images/image07.png" alt="朝の使用" class="scene-card-img">
         <div class="scene-card-label">
           <span class="scene-card-time">Morning / 出社前</span>
           <p class="scene-card-text">朝の5分。最低限のケアで清潔感を整える。</p>
         </div>
       </div>
-      <div class="scene-card reveal" style="transition-delay: 0.2s">
+      <div class="scene-card reveal reveal--delay-2">
         <img src="images/image08.png" alt="リラックスタイム" class="scene-card-img">
         <div class="scene-card-label">
           <span class="scene-card-time">Relax / リラックスタイム</span>
@@ -193,7 +237,7 @@
         </div>
       </div>
       <!-- 特徴2：テクスチャー -->
-      <div class="feature-card reveal" style="transition-delay: 0.1s">
+      <div class="feature-card reveal reveal--delay-1">
         <img src="images/image03.png" alt="なめらかなテクスチャー" class="feature-img">
         <div class="feature-info">
           <div class="feature-num">02</div>
@@ -202,7 +246,7 @@
         </div>
       </div>
       <!-- 特徴3：朝夜 -->
-      <div class="feature-card reveal" style="transition-delay: 0.15s">
+      <div class="feature-card reveal reveal--delay-2">
         <img src="images/image04.png" alt="朝の使用" class="feature-img">
         <div class="feature-info">
           <div class="feature-num">03</div>
@@ -218,7 +262,8 @@
 <!-- ⑥ ベネフィットセクション -->
 <!-- 動画_3を背景に使用 -->
 <section class="benefit">
-  <video class="benefit-video" autoplay muted loop playsinline>
+  <video class="benefit-video" autoplay muted loop playsinline
+         poster="images/benefit-poster.jpg">
     <source src="videos/video03.mp4" type="video/mp4">
   </video>
   <div class="benefit-overlay"></div>
@@ -235,14 +280,14 @@
         <p>1本だから、面倒がない。だから続く。<br>
         朝の乾燥が気になりにくくなる。</p>
       </div>
-      <div class="benefit-point reveal" style="transition-delay: 0.1s">
+      <div class="benefit-point reveal reveal--delay-1">
         <span class="benefit-point-icon">✨</span>
         <h3>整える</h3>
         <!-- 【変更12】体感変化の一文を追加 -->
         <p>完璧ではなく、最低限を毎日積み重ねる。<br>
         メイク前でも肌がカサついて見えにくい。</p>
       </div>
-      <div class="benefit-point reveal" style="transition-delay: 0.2s">
+      <div class="benefit-point reveal reveal--delay-2">
         <span class="benefit-point-icon">🌿</span>
         <h3>清潔感</h3>
         <!-- 【変更12】体感変化の一文を追加 -->
@@ -269,7 +314,7 @@
         </p>
         <div class="review-author">28歳 女性 / 会社員</div>
       </div>
-      <div class="review-card reveal" style="transition-delay: 0.1s">
+      <div class="review-card reveal reveal--delay-1">
         <div class="review-stars">★★★★★</div>
         <p class="review-text">
           ベタつくのが苦手なんですが、これは軽くて使いやすいです。
@@ -277,7 +322,7 @@
         </p>
         <div class="review-author">32歳 女性 / 営業職</div>
       </div>
-      <div class="review-card reveal" style="transition-delay: 0.15s">
+      <div class="review-card reveal reveal--delay-2">
         <div class="review-stars">★★★★☆</div>
         <p class="review-text">
           帰宅が遅い日は本当に助かってます。
@@ -285,7 +330,7 @@
         </p>
         <div class="review-author">26歳 女性 / 事務職</div>
       </div>
-      <div class="review-card reveal" style="transition-delay: 0.2s">
+      <div class="review-card reveal reveal--delay-3">
         <div class="review-stars">★★★★☆</div>
         <p class="review-text">
           劇的に変わるというより、"ちゃんとしてる感"が出る感じ。
@@ -406,8 +451,9 @@
     <a href="#">お問い合わせ</a>
   </div>
   <div class="footer-copy">
-    © 2024 LUMEA BEAUTY株式会社. All Rights Reserved.
+    © 2025 LUMEA BEAUTY株式会社. All Rights Reserved.
   </div>
-</footer>  <script src="script.js"></script>
+</footer>
+<script src="script.js"></script>
 </body>
 </html>

@@ -46,50 +46,13 @@ document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => 
 
 // ============================================
 // FAQ アコーディオン
+// クリックで開閉する
 // ============================================
 function toggleFaq(el) {
   const item = el.closest('.faq-item');
   const isOpen = item.classList.contains('open');
+  // 全部閉じる
   document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  // クリックしたのが閉じていたなら開く
   if (!isOpen) item.classList.add('open');
-}
-
-// ============================================
-// スマホ固定CTAバーの表示制御
-// FVのボタンが消えたら表示、CTAセクション到達で非表示
-// ============================================
-const stickyCta  = document.getElementById('stickyCta');
-const fvBtn      = document.querySelector('.fv-btn');
-const ctaSection = document.getElementById('cta');
-
-if (stickyCta && fvBtn && ctaSection) {
-  let fvBtnVisible  = true;
-  let ctaVisible    = false;
-
-  function updateStickyVisibility() {
-    if (!fvBtnVisible && !ctaVisible) {
-      stickyCta.classList.remove('hidden');
-    } else {
-      stickyCta.classList.add('hidden');
-    }
-  }
-
-  stickyCta.classList.add('hidden');
-
-  const fvObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      fvBtnVisible = entry.isIntersecting;
-      updateStickyVisibility();
-    });
-  }, { threshold: 0 });
-
-  const ctaObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      ctaVisible = entry.isIntersecting;
-      updateStickyVisibility();
-    });
-  }, { threshold: 0.1 });
-
-  fvObserver.observe(fvBtn);
-  ctaObserver.observe(ctaSection);
 }
