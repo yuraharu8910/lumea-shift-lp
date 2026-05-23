@@ -1,0 +1,1154 @@
+/* ============================================
+   CSS変数（カラー・フォント定義）
+   ブランドカラーをここで一元管理
+   ============================================ */
+:root {
+  --primary: #EAE3D9;      /* メインベージュ */
+  --secondary: #F5F5F5;    /* ライトグレー */
+  --accent: #D4BFA3;       /* アクセントベージュ */
+  --text: #333333;         /* メインテキスト */
+  --text-light: #666666;   /* サブテキスト */
+  --white: #ffffff;
+  --dark: #1a1a1a;         /* FV背景など暗色用 */
+  --font-en: 'Cormorant Garamond', serif;  /* 英字セリフフォント */
+  --font-ja: 'Noto Sans JP', sans-serif;  /* 日本語フォント */
+}
+
+/* ============================================
+   リセット・ベーススタイル
+   ============================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-ja);
+  color: var(--text);
+  background: var(--white);
+  overflow-x: hidden;
+  line-height: 1.8;
+}
+
+/* ============================================
+   ローディングアニメーション
+   YOLUのようなオープニング演出
+   ============================================ */
+#loading {
+  position: fixed;
+  inset: 0;
+  background: var(--dark);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+#loading.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+.loading-logo {
+  font-family: var(--font-en);
+  font-size: clamp(28px, 6vw, 48px);
+  font-weight: 300;
+  letter-spacing: 0.3em;
+  color: var(--white);
+  animation: fadeInUp 1s ease 0.3s both;
+}
+.loading-sub {
+  font-family: var(--font-ja);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  animation: fadeInUp 1s ease 0.6s both;
+}
+.loading-bar {
+  width: 100px;
+  height: 1px;
+  background: rgba(255,255,255,0.2);
+  position: relative;
+  animation: fadeInUp 1s ease 0.8s both;
+}
+.loading-bar::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  height: 100%;
+  background: var(--accent);
+  animation: loadBar 1.5s ease 1s both;
+}
+@keyframes loadBar { from { width: 0; } to { width: 100%; } }
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================
+   スクロールアニメーション用クラス
+   Intersection Observer APIで制御
+   ============================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+.reveal-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+.reveal-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+.reveal-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ============================================
+   アニメーション遅延ユーティリティクラス
+   HTMLのインラインstyle "transition-delay"を
+   こちらに切り出して管理しやすくした
+   ============================================ */
+.reveal--delay-1 { transition-delay: 0.1s; }
+.reveal--delay-2 { transition-delay: 0.15s; }
+.reveal--delay-3 { transition-delay: 0.2s; }
+.reveal--delay-4 { transition-delay: 0.25s; }
+
+/* ============================================
+   ナビゲーション（固定ヘッダー）
+   ============================================ */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.4s ease, padding 0.4s ease;
+}
+.nav.scrolled {
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(10px);
+  padding: 14px 40px;
+  box-shadow: 0 1px 20px rgba(0,0,0,0.06);
+}
+.nav-logo {
+  font-family: var(--font-en);
+  font-size: 20px;
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  color: var(--white);
+  text-decoration: none;
+  transition: color 0.4s ease;
+}
+.nav.scrolled .nav-logo { color: var(--text); }
+.nav-cta {
+  background: var(--accent);          /* ベージュで塗りつぶし */
+  border: 1px solid var(--accent);    /* 枠線も同色に */
+  color: var(--white);
+  padding: 10px 24px;
+  font-family: var(--font-ja);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+.nav-cta:hover {
+  background: #c4af93;                /* ホバーで少し暗いベージュに */
+  border-color: #c4af93;
+  color: var(--white);
+}
+/* スクロール後も同じベージュを維持 */
+.nav.scrolled .nav-cta {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--white);
+}
+.nav.scrolled .nav-cta:hover {
+  background: #c4af93;
+  border-color: #c4af93;
+  color: var(--white);
+}
+
+/* ============================================
+   FV（ファーストビュー）
+   背景に動画、テキストをフェードイン
+   ============================================ */
+.fv {
+  position: relative;
+  /* 【変更3】100vh → 100dvh（iPhoneのアドレスバーを考慮したモダンな高さ指定） */
+  height: 100dvh;
+  min-height: 600px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 80px;
+}
+.fv-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+/* 動画の上に暗いオーバーレイ */
+.fv-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.15) 0%,
+    rgba(0,0,0,0.3) 50%,
+    rgba(0,0,0,0.65) 100%
+  );
+}
+.fv-content {
+  position: relative;
+  z-index: 2;
+  padding: 0 clamp(24px, 5vw, 80px);
+  max-width: 900px;
+}
+/* 【変更2】FVアニメーションの遅延を短縮（直帰率改善） */
+.fv-eyebrow {
+  font-family: var(--font-en);
+  font-size: 12px;
+  letter-spacing: 0.3em;
+  color: var(--accent);
+  margin-bottom: 20px;
+  animation: fadeInUp 0.8s ease 0.1s both;
+}
+.fv-headline {
+  font-family: var(--font-ja);
+  font-size: clamp(26px, 5vw, 52px);
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--white);
+  margin-bottom: 28px;
+  animation: fadeInUp 0.8s ease 0.3s both;
+}
+.fv-headline em {
+  font-style: normal;
+  color: var(--accent);
+}
+.fv-sub {
+  font-size: 14px;
+  color: rgba(255,255,255,0.75);
+  margin-bottom: 40px;
+  line-height: 1.9;
+  animation: fadeInUp 0.8s ease 0.5s both;
+}
+.fv-btn {
+  display: inline-block;
+  background: var(--accent);          /* ベージュで塗りつぶし */
+  border: 1px solid var(--accent);    /* 枠線も同色に */
+  color: var(--white);
+  padding: 16px 48px;
+  font-family: var(--font-ja);
+  font-size: 13px;
+  letter-spacing: 0.15em;
+  text-decoration: none;
+  transition: all 0.4s ease;
+  animation: fadeInUp 0.8s ease 0.7s both;
+}
+.fv-btn:hover {
+  background: #c4af93;                /* ホバーで少し暗いベージュに */
+  border-color: #c4af93;
+}
+
+/* 【変更4】FVボタン直下の安心テキスト用クラス（新規追加） */
+.fv-btn-note {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: 0.08em;
+  margin-top: 10px;
+  text-align: left;
+  animation: fadeInUp 0.8s ease 0.9s both;
+}
+
+/* スクロール促進アニメーション */
+.fv-scroll {
+  position: absolute;
+  bottom: 30px;
+  right: 40px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  animation: fadeInUp 1s ease 3s both;
+}
+.fv-scroll span {
+  font-family: var(--font-en);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: rgba(255,255,255,0.6);
+  writing-mode: vertical-rl;
+}
+.fv-scroll-line {
+  width: 1px;
+  height: 60px;
+  background: rgba(255,255,255,0.3);
+  position: relative;
+  overflow: hidden;
+}
+.fv-scroll-line::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  background: var(--accent);
+  animation: scrollDown 1.5s ease infinite;
+}
+@keyframes scrollDown {
+  from { top: -100%; height: 50%; }
+  to { top: 100%; height: 50%; }
+}
+
+/* ============================================
+   セクション共通スタイル
+   ============================================ */
+section { overflow: hidden; }
+.section-label {
+  font-family: var(--font-en);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  display: block;
+}
+.section-title {
+  font-family: var(--font-ja);
+  font-size: clamp(22px, 4vw, 38px);
+  font-weight: 300;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+.section-body {
+  font-size: 14px;
+  color: var(--text-light);
+  line-height: 2;
+  max-width: 480px;
+}
+
+/* ============================================
+   共感セクション（②悩み）
+   疲れた夜の情景
+   ============================================ */
+.pain {
+  background: var(--dark);
+  padding: clamp(80px, 12vw, 160px) 0;
+  color: var(--white);
+}
+.pain-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 clamp(24px, 5vw, 80px);
+}
+.pain-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+.pain-img {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  filter: brightness(0.85);
+}
+.pain-text .section-label { color: var(--accent); }
+.pain-text .section-title { color: var(--white); }
+.pain-items {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.pain-item {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 20px;
+  border-left: 2px solid rgba(212,191,163,0.3);
+  transition: border-color 0.3s ease;
+}
+.pain-item:hover { border-color: var(--accent); }
+.pain-item-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.pain-item-text {
+  font-size: 14px;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.8;
+}
+.pain-item-text strong {
+  display: block;
+  color: var(--white);
+  font-weight: 400;
+  margin-bottom: 4px;
+  font-size: 15px;
+}
+
+/* ============================================
+   解決セクション（③解決）
+   動画＋テキスト
+   ============================================ */
+.solution {
+  padding: clamp(80px, 12vw, 160px) 0;
+  background: var(--secondary);
+}
+.solution-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 clamp(24px, 5vw, 80px);
+}
+.solution-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+.solution-video-wrap {
+  position: relative;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+}
+.solution-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* 動画の上の装飾フレーム */
+.solution-video-wrap::after {
+  content: '';
+  position: absolute;
+  bottom: -20px;
+  right: -20px;
+  width: 60%;
+  height: 60%;
+  border: 1px solid var(--accent);
+  z-index: -1;
+}
+
+/* ============================================
+   安心バー（③解決セクション直後）
+   価格・縛りなし情報を早期に表示
+   ============================================ */
+.trust-bar {
+  background: var(--white);
+  padding: 40px 20px;
+  border-top: 1px solid rgba(212,191,163,0.2);
+  border-bottom: 1px solid rgba(212,191,163,0.2);
+}
+.trust-bar-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+.trust-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 12px 24px;
+  border: 1px solid rgba(212,191,163,0.5);
+}
+.trust-item-price {
+  font-family: var(--font-en);
+  font-size: 26px;
+  font-weight: 300;
+  color: var(--text);
+  line-height: 1;
+}
+.trust-item-label {
+  font-size: 11px;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+}
+.trust-item-badge {
+  font-size: 12px;
+  color: var(--text-light);
+  letter-spacing: 0.08em;
+  padding: 8px 20px;
+  border: 1px solid rgba(212,191,163,0.4);
+}
+
+/* SP対応 */
+@media (max-width: 480px) {
+  .trust-bar { padding: 28px 16px; }
+  .trust-bar-inner { gap: 10px; }
+  .trust-item { padding: 10px 16px; }
+  .trust-item-price { font-size: 22px; }
+  .trust-item-badge { font-size: 11px; padding: 7px 14px; }
+}
+
+/* ============================================
+   商品説明セクション（⑤商品説明）
+   ============================================ */
+.product {
+  padding: clamp(80px, 12vw, 160px) 0;
+  background: var(--white);
+}
+.product-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 clamp(24px, 5vw, 80px);
+}
+.product-header {
+  text-align: center;
+  margin-bottom: 70px;
+}
+.product-features {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px;
+  margin-bottom: 70px;
+}
+.feature-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 24px;
+  align-items: start;
+  padding: 32px;
+  background: var(--secondary);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+}
+.feature-img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+}
+.feature-info .feature-num {
+  font-family: var(--font-en);
+  font-size: 36px;
+  font-weight: 300;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.feature-info h3 {
+  font-size: 17px;
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+.feature-info p {
+  font-size: 13px;
+  color: var(--text-light);
+  line-height: 1.9;
+}
+
+/* ============================================
+   使用シーンセクション（④使用シーン）
+   横スクロール or グリッド
+   ============================================ */
+.scene {
+  padding: clamp(80px, 12vw, 160px) 0;
+  background: var(--primary);
+}
+.scene-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 clamp(24px, 5vw, 80px);
+}
+.scene-header {
+  margin-bottom: 50px;
+}
+.scene-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.scene-card {
+  position: relative;
+  overflow: hidden;
+}
+.scene-card-img {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s ease;
+}
+.scene-card:hover .scene-card-img {
+  transform: scale(1.05);
+}
+.scene-card-label {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 60px 20px 24px;          /* 上のグラデーション領域を広く */
+  background: linear-gradient(transparent, rgba(0,0,0,0.82)); /* オーバーレイを濃く */
+  color: var(--white);
+}
+.scene-card-time {
+  font-family: var(--font-en);
+  font-size: 13px;                  /* 少し大きく */
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  display: block;
+  margin-bottom: 8px;               /* 時間テキストと本文の間隔を広く */
+  text-shadow: 0 1px 4px rgba(0,0,0,0.5); /* 読みやすさのためシャドウ追加 */
+}
+.scene-card-text {
+  font-size: 15px;                  /* 14px → 15px */
+  font-weight: 400;                 /* 300（細め）→ 400（標準）に */
+  line-height: 1.6;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.6); /* 文字に影をつけて画像と分離 */
+}
+
+/* ============================================
+   ベネフィットセクション（⑥ベネフィット）
+   動画背景＋テキスト
+   ============================================ */
+.benefit {
+  position: relative;
+  padding: clamp(100px, 15vw, 200px) 0;
+  overflow: hidden;
+}
+.benefit-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.benefit-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+}
+.benefit-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 clamp(24px, 5vw, 80px);
+  text-align: center;
+  color: var(--white);
+}
+.benefit-title {
+  font-family: var(--font-ja);
+  font-size: clamp(22px, 4vw, 42px);
+  font-weight: 300;
+  line-height: 1.7;
+  margin-bottom: 60px;
+}
+.benefit-title em {
+  font-style: normal;
+  color: var(--accent);
+}
+.benefit-points {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.benefit-point {
+  padding: 32px 20px;
+  border: 1px solid rgba(255,255,255,0.2);
+  backdrop-filter: blur(8px);
+  background: rgba(255,255,255,0.05);
+  transition: all 0.3s ease;
+}
+.benefit-point:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: var(--accent);
+}
+.benefit-point-icon {
+  font-size: 28px;
+  margin-bottom: 16px;
+  display: block;
+}
+.benefit-point h3 {
+  font-size: 15px;
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+.benefit-point p {
+  font-size: 12px;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.8;
+}
+
+/* ============================================
+   お客様の声セクション（⑦レビュー）
+   ============================================ */
+.reviews {
+  padding: clamp(80px, 12vw, 160px) 0;
+  background: var(--white);
+}
+.reviews-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 clamp(24px, 5vw, 80px);
+}
+.reviews-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+.review-card {
+  padding: 36px;
+  background: var(--secondary);
+  position: relative;
+}
+.review-card::before {
+  content: '"';
+  font-family: var(--font-en);
+  font-size: 80px;
+  color: var(--accent);
+  opacity: 0.3;
+  position: absolute;
+  top: 16px; left: 28px;
+  line-height: 1;
+}
+.review-text {
+  font-size: 14px;
+  line-height: 2;
+  color: var(--text);
+  margin-bottom: 20px;
+  padding-top: 24px;
+  position: relative;
+}
+.review-stars {
+  color: #D4A853;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+.review-author {
+  font-size: 12px;
+  color: var(--text-light);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.review-author::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 1px;
+  background: var(--accent);
+}
+
+/* ============================================
+   FAQセクション（⑧FAQ）
+   ============================================ */
+.faq {
+  padding: clamp(80px, 12vw, 160px) 0;
+  background: var(--primary);
+}
+.faq-inner {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 clamp(24px, 5vw, 80px);
+}
+.faq-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+.faq-item {
+  border-bottom: 1px solid rgba(51,51,51,0.12);
+  overflow: hidden;
+}
+.faq-q {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 0;
+  cursor: pointer;
+  gap: 16px;
+  transition: color 0.3s ease;
+}
+.faq-q:hover { color: var(--accent); }
+.faq-q-text {
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.6;
+}
+.faq-q-num {
+  font-family: var(--font-en);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  flex-shrink: 0;
+  margin-right: 12px;
+}
+.faq-icon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+.faq-icon::before, .faq-icon::after {
+  content: '';
+  position: absolute;
+  background: var(--text);
+  transition: all 0.3s ease;
+}
+.faq-icon::before { width: 14px; height: 1px; top: 50%; left: 50%; transform: translate(-50%,-50%); }
+.faq-icon::after { width: 1px; height: 14px; top: 50%; left: 50%; transform: translate(-50%,-50%); }
+.faq-item.open .faq-icon { transform: rotate(45deg); }
+.faq-a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.4s ease;
+}
+.faq-item.open .faq-a { max-height: 200px; }
+.faq-a-inner {
+  padding: 0 0 24px 36px;
+  font-size: 14px;
+  color: var(--text-light);
+  line-height: 2;
+}
+
+/* ============================================
+   CTAセクション（⑨購入）
+   ============================================ */
+.cta {
+  padding: clamp(80px, 12vw, 160px) 0;
+  background: var(--dark);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+/* CTAの背景に薄く商品画像 */
+.cta-bg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.12;
+}
+.cta-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 clamp(24px, 5vw, 80px);
+}
+.cta-brand {
+  font-family: var(--font-en);
+  font-size: 13px;
+  letter-spacing: 0.4em;
+  color: var(--accent);
+  margin-bottom: 24px;
+  display: block;
+}
+.cta-headline {
+  font-family: var(--font-ja);
+  font-size: clamp(22px, 4vw, 36px);
+  font-weight: 300;
+  color: var(--white);
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+.cta-sub {
+  font-size: 13px;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 50px;
+  line-height: 2;
+}
+.cta-price-box {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(212,191,163,0.3);
+  padding: 36px;
+  margin-bottom: 36px;
+}
+.cta-price-label {
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  color: var(--accent);
+  margin-bottom: 12px;
+  display: block;
+}
+.cta-price-row {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.cta-price-main {
+  font-family: var(--font-en);
+  font-size: 52px;
+  font-weight: 300;
+  color: var(--white);
+  line-height: 1;
+}
+.cta-price-yen {
+  font-size: 20px;
+  color: var(--white);
+  font-weight: 300;
+}
+.cta-price-note {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+}
+.cta-price-regular {
+  font-size: 12px;
+  color: rgba(255,255,255,0.35);
+  text-decoration: line-through;
+  margin-bottom: 8px;
+}
+.cta-badges {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+.cta-badge {
+  font-size: 11px;
+  padding: 5px 14px;
+  border: 1px solid rgba(212,191,163,0.4);
+  color: var(--accent);
+  letter-spacing: 0.05em;
+}
+.cta-btn {
+  display: block;
+  background: var(--accent);
+  color: var(--white);
+  padding: 20px 60px;
+  font-family: var(--font-ja);
+  font-size: 14px;
+  letter-spacing: 0.15em;
+  text-decoration: none;
+  transition: all 0.4s ease;
+  margin-bottom: 16px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+.cta-btn:hover {
+  background: #c4af93;
+  letter-spacing: 0.2em;
+}
+.cta-btn-sub {
+  display: block;
+  background: transparent;
+  color: rgba(255,255,255,0.55);
+  padding: 16px 60px;
+  font-family: var(--font-ja);
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  border: 1px solid rgba(255,255,255,0.2);
+  transition: all 0.3s ease;
+  width: 100%;
+}
+.cta-btn-sub:hover {
+  border-color: rgba(255,255,255,0.5);
+  color: var(--white);
+}
+
+/* ============================================
+   フッター
+   ============================================ */
+footer {
+  padding: 48px clamp(24px, 5vw, 80px);
+  background: #111;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.footer-logo {
+  font-family: var(--font-en);
+  font-size: 18px;
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  color: rgba(255,255,255,0.5);
+}
+.footer-links {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.footer-links a {
+  font-size: 11px;
+  color: rgba(255,255,255,0.3);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  transition: color 0.3s ease;
+}
+.footer-links a:hover { color: var(--accent); }
+.footer-copy {
+  font-size: 11px;
+  color: rgba(255,255,255,0.2);
+  width: 100%;
+  text-align: center;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+/* ============================================
+   レスポンシブ（タブレット：768px以下）
+   グリッドを1カラムに切り替え
+   ============================================ */
+@media (max-width: 768px) {
+
+  /* --- グリッド系：全て1カラムに --- */
+  .pain-grid,
+  .solution-grid,
+  .product-features,
+  .scene-grid,
+  .benefit-points,
+  .reviews-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* --- 悩みセクション：スマホでは「テキスト→画像」の順にする --- */
+  /* order プロパティでHTML順序を変えずに表示順を制御 */
+  .pain-grid { gap: 40px; }
+  .pain-img { order: 2; }   /* 画像を後ろに */
+  .pain-text { order: 1; }  /* テキストを先に */
+
+  /* --- 解決セクション --- */
+  .solution-grid { gap: 40px; }
+
+  /* --- ナビゲーション --- */
+  .nav { padding: 16px 20px; }
+  .nav.scrolled { padding: 12px 20px; }
+
+  /* --- FV（ファーストビュー） --- */
+  .fv-content { padding: 0 20px; }
+
+  /* --- CTAセクション --- */
+  .cta-price-main { font-size: 40px; }
+  .cta-price-box { padding: 24px 20px; }  /* スマホでpadding縮小 */
+
+  /* --- フッター --- */
+  footer {
+    flex-direction: column;
+    text-align: center;
+    padding: 36px 24px;
+  }
+  .footer-links {
+    justify-content: center;  /* リンクを中央揃えに */
+    gap: 16px;
+  }
+}
+
+/* ============================================
+   レスポンシブ（スマホ：480px以下）
+   より細かいスマホ専用の調整
+   ============================================ */
+@media (max-width: 480px) {
+
+  /* --- ナビ：CTAボタンを小さく、タップしやすく --- */
+  .nav-cta {
+    padding: 8px 16px;
+    font-size: 11px;
+  }
+
+  /* --- FV：ヘッドラインの行間を少し詰める --- */
+  .fv-headline {
+    line-height: 1.45;
+    margin-bottom: 20px;
+  }
+  /* スクロールインジケーターをスマホで非表示（邪魔になるため） */
+  .fv-scroll { display: none; }
+
+  /* --- 悩みセクション：左ボーダーアイテムをコンパクトに --- */
+  .pain-item { padding: 14px 12px; }
+
+  /* --- 商品説明：feature-cardのレイアウト調整 --- */
+  /* スマホでは画像とテキストを縦並びに */
+  .feature-card {
+    grid-template-columns: 1fr;    /* 横2列 → 縦1列 */
+    gap: 16px;
+    padding: 24px 20px;
+  }
+  .feature-img {
+    width: 80px;
+    height: 80px;
+  }
+
+  /* --- 使用シーン：3枚→スクロール式に変更 --- */
+  /* overflow:auto で横スクロール可能なカルーセル風に */
+  .scene-grid {
+    display: flex;             /* gridからflexに変更 */
+    overflow-x: auto;          /* 横スクロール可能に */
+    scroll-snap-type: x mandatory;  /* スナップスクロール */
+    gap: 16px;
+    padding-bottom: 8px;       /* スクロールバー分の余白 */
+    -webkit-overflow-scrolling: touch;  /* iOS慣性スクロール */
+  }
+  .scene-card {
+    min-width: 75vw;           /* 1枚の幅を画面の75%に固定 */
+    scroll-snap-align: start;  /* スナップ位置 */
+    flex-shrink: 0;
+  }
+
+  /* --- ベネフィット：ポイントカードを縦に --- */
+  .benefit-points { gap: 16px; }
+  .benefit-point { padding: 24px 16px; }
+
+  /* --- レビュー：カードのpadding縮小 --- */
+  .review-card { padding: 24px 20px; }
+
+  /* --- FAQ：文字サイズ調整 --- */
+  .faq-q-text { font-size: 14px; }
+  .faq-a-inner { padding: 0 0 20px 24px; }
+
+  /* --- CTAセクション --- */
+  .cta-price-main { font-size: 36px; }
+  .cta-price-yen { font-size: 18px; }
+  .cta-btn {
+    padding: 18px 24px;        /* 横paddingを縮小してはみ出し防止 */
+    font-size: 13px;
+  }
+  /* 【変更6】SP版サブCTAボタン改善（タップ認識向上） */
+  .cta-btn-sub {
+    padding: 14px 24px;
+    font-size: 14px;                           /* 12px → 14px（視認性向上） */
+    background: rgba(255, 255, 255, 0.08);     /* 塗りを追加してボタンとして認識させる */
+    border: 1px solid rgba(255, 255, 255, 0.4); /* コントラスト強化 */
+  }
+  /* バッジが縦に並びすぎないよう調整 */
+  .cta-badges { gap: 8px; }
+  .cta-badge {
+    font-size: 10px;
+    padding: 4px 10px;
+  }
+
+  /* --- フッター --- */
+  .footer-links {
+    flex-direction: column;    /* リンクを縦並びに */
+    align-items: center;
+    gap: 12px;
+  }
+  .footer-links a { font-size: 12px; } /* タップしやすいよう少し大きく */
+}

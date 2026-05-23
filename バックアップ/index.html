@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LUMEA SHIFT | 忙しくても、整える。</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Noto+Sans+JP:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ローディング画面 -->
+<div id="loading">
+  <div class="loading-logo">LUMEA SHIFT</div>
+  <div class="loading-sub">ALL IN ONE BEAUTY SERUM</div>
+  <div class="loading-bar"></div>
+</div>
+
+<!-- ナビゲーション -->
+<nav class="nav" id="nav">
+  <a href="#" class="nav-logo">LUMEA SHIFT</a>
+  <!-- 【変更7】「はじめる」→「試してみる」に変更（コミットメント感を下げる） -->
+  <a href="#cta" class="nav-cta">試してみる</a>
+</nav>
+
+<!-- ① FV（ファーストビュー） -->
+<!-- 背景に動画_2を使用：夜のベッドサイドシーン -->
+<section class="fv">
+  <video class="fv-video" autoplay muted loop playsinline>
+    <source src="videos/video01.mp4" type="video/mp4">
+  </video>
+  <div class="fv-overlay"></div>
+  <div class="fv-content">
+    <span class="fv-eyebrow">ALL IN ONE BEAUTY SERUM</span>
+    <h1 class="fv-headline">
+      帰宅が遅い日は、<br>
+      全部やるの<em>無理。</em><br>
+      だから、<em>これだけ。</em>
+    </h1>
+    <p class="fv-sub">
+      忙しくても、整える。<br>
+      1本で完結するオールインワン美容液。
+    </p>
+    <a href="#cta" class="fv-btn">初回 ¥1,980 で試してみる</a>
+    <!-- 【変更8】ボタン直下に安心テキストを追加（縛りへの恐怖を早期解消） -->
+    <p class="fv-btn-note">回数縛りなし・いつでも解約OK</p>
+  </div>
+  <div class="fv-scroll">
+    <div class="fv-scroll-line"></div>
+    <span>scroll</span>
+  </div>
+</section>
+
+<!-- ② 悩みセクション -->
+<!-- 疲れた帰宅後の情景：静止画-10（うつ伏せ）を使用 -->
+<section class="pain">
+  <div class="pain-inner">
+    <div class="pain-grid">
+      <img src="images/image01.png" alt="疲れた夜" class="pain-img reveal-left">
+      <div class="pain-text">
+        <span class="section-label reveal">Pain Point</span>
+        <h2 class="section-title reveal" style="color: var(--white);">
+          続かないのは、<br>あなたのせいじゃない。
+        </h2>
+        <div class="pain-items">
+          <div class="pain-item reveal">
+            <span class="pain-item-icon">🌙</span>
+            <div class="pain-item-text">
+              <strong>21時帰宅、洗顔で終わり</strong>
+              化粧水、美容液、乳液——疲れた夜に複数ステップは続かない
+            </div>
+          </div>
+          <div class="pain-item reveal" style="transition-delay: 0.1s">
+            <span class="pain-item-icon">⏰</span>
+            <div class="pain-item-text">
+              <strong>朝は時間がない</strong>
+              義務感でやろうとするほど、スキンケアが重荷になっていく
+            </div>
+          </div>
+          <div class="pain-item reveal" style="transition-delay: 0.2s">
+            <span class="pain-item-icon">💸</span>
+            <div class="pain-item-text">
+              <strong>効果がわからないまま定期縛り</strong>
+              試してみたいけど、続ける自信がないまま高額購入は怖い
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ③ 解決セクション -->
+<!-- 動画_1を使用：洗面台での使用シーン -->
+<section class="solution">
+  <div class="solution-inner">
+    <div class="solution-grid">
+      <div>
+        <span class="section-label reveal">Solution</span>
+        <h2 class="section-title reveal">
+          完璧じゃなくていい。<br>
+          <em style="font-style: normal; color: var(--accent);">これだけでいい。</em>
+        </h2>
+        <p class="section-body reveal">
+          化粧水・美容液・乳液・クリームの工程を、
+          たった1本に。ベタつかないから朝も使える。
+          忙しい日の「最低限」が、
+          続けられるケアになります。
+        </p>
+        <div style="margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+          <div class="reveal" style="text-align: center; padding: 24px; background: white;">
+            <div style="font-family: var(--font-en); font-size: 36px; font-weight: 300; color: var(--accent);">1</div>
+            <div style="font-size: 13px; margin-top: 4px;">本で完結</div>
+          </div>
+          <div class="reveal" style="text-align: center; padding: 24px; background: white; transition-delay: 0.1s">
+            <div style="font-family: var(--font-en); font-size: 36px; font-weight: 300; color: var(--accent);">朝夜</div>
+            <div style="font-size: 13px; margin-top: 4px;">どちらも使える</div>
+          </div>
+        </div>
+      </div>
+      <div class="solution-video-wrap reveal-right">
+        <video class="solution-video" autoplay muted loop playsinline>
+          <source src="videos/video02.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 【変更9】安心バー：③解決セクションの直後に挿入（価格・縛りなし情報を早期表示） -->
+<section class="trust-bar">
+  <div class="trust-bar-inner">
+    <div class="trust-item reveal">
+      <span class="trust-item-price">¥1,980</span>
+      <span class="trust-item-label">初回特別価格（税込）</span>
+    </div>
+    <span class="trust-item-badge reveal" style="transition-delay:0.1s">回数縛りなし</span>
+    <span class="trust-item-badge reveal" style="transition-delay:0.15s">初回送料無料</span>
+    <span class="trust-item-badge reveal" style="transition-delay:0.2s">いつでも解約OK</span>
+    <span class="trust-item-badge reveal" style="transition-delay:0.25s">次回発送5日前まで解約可</span>
+  </div>
+</section>
+
+<!-- 【変更10】④ 使用シーンセクション（商品説明と順番を入れ替え：体験共感→理由の流れに） -->
+<section class="scene">
+  <div class="scene-inner">
+    <div class="scene-header">
+      <span class="section-label reveal">Scene</span>
+      <h2 class="section-title reveal">どんな日も、これだけでいい。</h2>
+    </div>
+    <div class="scene-grid">
+      <div class="scene-card reveal">
+        <img src="images/image06.png" alt="夜帰宅後" class="scene-card-img">
+        <div class="scene-card-label">
+          <span class="scene-card-time">Night / 帰宅後</span>
+          <p class="scene-card-text">疲れた夜はこれ1本。洗顔のあとにさっと。</p>
+        </div>
+      </div>
+      <div class="scene-card reveal" style="transition-delay: 0.1s">
+        <img src="images/image07.png" alt="朝の使用" class="scene-card-img">
+        <div class="scene-card-label">
+          <span class="scene-card-time">Morning / 出社前</span>
+          <p class="scene-card-text">朝の5分。最低限のケアで清潔感を整える。</p>
+        </div>
+      </div>
+      <div class="scene-card reveal" style="transition-delay: 0.2s">
+        <img src="images/image08.png" alt="リラックスタイム" class="scene-card-img">
+        <div class="scene-card-label">
+          <span class="scene-card-time">Relax / リラックスタイム</span>
+          <p class="scene-card-text">スマホを見ながら、習慣のように。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 【変更10】⑤ 商品説明セクション（使用シーンの後に移動） -->
+<section class="product">
+  <div class="product-inner">
+    <div class="product-header">
+      <span class="section-label reveal">Product</span>
+      <h2 class="section-title reveal">LUMEA SHIFT のこだわり</h2>
+    </div>
+    <div class="product-features">
+      <!-- 特徴1：1本で完結 -->
+      <div class="feature-card reveal">
+        <img src="images/image02.png" alt="1本でOK" class="feature-img">
+        <div class="feature-info">
+          <div class="feature-num">01</div>
+          <h3>化粧水からクリームまで1本で</h3>
+          <p>工程を減らすことで、忙しい日でも「やった」と思える最低限のケアを実現。</p>
+        </div>
+      </div>
+      <!-- 特徴2：テクスチャー -->
+      <div class="feature-card reveal" style="transition-delay: 0.1s">
+        <img src="images/image03.png" alt="なめらかなテクスチャー" class="feature-img">
+        <div class="feature-info">
+          <div class="feature-num">02</div>
+          <h3>ベタつかない軽いテクスチャー</h3>
+          <p>朝の出勤前でも不快感なく使える、サラッとなじむ設計。</p>
+        </div>
+      </div>
+      <!-- 特徴3：朝夜 -->
+      <div class="feature-card reveal" style="transition-delay: 0.15s">
+        <img src="images/image04.png" alt="朝の使用" class="feature-img">
+        <div class="feature-info">
+          <div class="feature-num">03</div>
+          <h3>朝も夜も使える処方設計</h3>
+          <p>「時間があるとき」に使うのではなく、「時間がないとき」に使うための処方。</p>
+        </div>
+      </div>
+      <!-- 【変更11】特徴4（男女兼用）は削除済み（スクロール疲れ軽減のため） -->
+    </div>
+  </div>
+</section>
+
+<!-- ⑥ ベネフィットセクション -->
+<!-- 動画_3を背景に使用 -->
+<section class="benefit">
+  <video class="benefit-video" autoplay muted loop playsinline>
+    <source src="videos/video03.mp4" type="video/mp4">
+  </video>
+  <div class="benefit-overlay"></div>
+  <div class="benefit-inner">
+    <h2 class="benefit-title reveal">
+      続けることで、<br>
+      <em>「ちゃんとしてる感」</em>が出てくる。
+    </h2>
+    <div class="benefit-points">
+      <div class="benefit-point reveal">
+        <span class="benefit-point-icon">💧</span>
+        <h3>続けやすい</h3>
+        <!-- 【変更12】体感変化の一文を追加（購入動機・変化期待の強化） -->
+        <p>1本だから、面倒がない。だから続く。<br>
+        朝の乾燥が気になりにくくなる。</p>
+      </div>
+      <div class="benefit-point reveal" style="transition-delay: 0.1s">
+        <span class="benefit-point-icon">✨</span>
+        <h3>整える</h3>
+        <!-- 【変更12】体感変化の一文を追加 -->
+        <p>完璧ではなく、最低限を毎日積み重ねる。<br>
+        メイク前でも肌がカサついて見えにくい。</p>
+      </div>
+      <div class="benefit-point reveal" style="transition-delay: 0.2s">
+        <span class="benefit-point-icon">🌿</span>
+        <h3>清潔感</h3>
+        <!-- 【変更12】体感変化の一文を追加 -->
+        <p>仕事前の「ちゃんとしてる」安心感へ。<br>
+        洗顔後に何もしない罪悪感が減る。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑦ お客様の声 -->
+<section class="reviews">
+  <div class="reviews-inner">
+    <div class="reviews-header">
+      <span class="section-label reveal">Voice</span>
+      <h2 class="section-title reveal">続けている人の、リアルな声</h2>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card reveal">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">
+          正直、スキンケアって"やらなきゃ"って思うほど続かなくて…。
+          これは"1本でいい"って割り切れるから、むしろ続いてます。
+        </p>
+        <div class="review-author">28歳 女性 / 会社員</div>
+      </div>
+      <div class="review-card reveal" style="transition-delay: 0.1s">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">
+          ベタつくのが苦手なんですが、これは軽くて使いやすいです。
+          朝にサッと使えるのが助かります。
+        </p>
+        <div class="review-author">32歳 女性 / 営業職</div>
+      </div>
+      <div class="review-card reveal" style="transition-delay: 0.15s">
+        <div class="review-stars">★★★★☆</div>
+        <p class="review-text">
+          帰宅が遅い日は本当に助かってます。
+          "最低限これだけやればOK"って思えるのがラクです。
+        </p>
+        <div class="review-author">26歳 女性 / 事務職</div>
+      </div>
+      <div class="review-card reveal" style="transition-delay: 0.2s">
+        <div class="review-stars">★★★★☆</div>
+        <p class="review-text">
+          劇的に変わるというより、"ちゃんとしてる感"が出る感じ。
+          仕事前の安心感が違います。
+        </p>
+        <div class="review-author">35歳 女性 / IT系</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑧ FAQセクション -->
+<section class="faq">
+  <div class="faq-inner">
+    <div class="faq-header">
+      <span class="section-label reveal">FAQ</span>
+      <h2 class="section-title reveal">よくあるご質問</h2>
+    </div>
+    <div class="faq-list">
+      <!-- 【変更13】Q01：解約を最初に（最大の不安を先に解消） -->
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-num">Q01</span>
+          <span class="faq-q-text">解約は簡単にできますか？</span>
+          <span class="faq-icon"></span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">はい。次回発送の5日前までにご連絡いただければ可能です。回数縛りはありません。</div>
+        </div>
+      </div>
+      <!-- 【変更13】Q02：旧Q01（1本で大丈夫？） -->
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-num">Q02</span>
+          <span class="faq-q-text">本当にこれ1本で大丈夫ですか？</span>
+          <span class="faq-icon"></span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">スキンケアを"完璧にする"というより、「何もしないより整える」ことを目的としています。忙しい日のベースケアとしてご利用ください。</div>
+        </div>
+      </div>
+      <!-- 【変更13】Q03：旧Q02（ベタつく？） -->
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-num">Q03</span>
+          <span class="faq-q-text">ベタつきませんか？</span>
+          <span class="faq-icon"></span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">軽めのテクスチャで、肌なじみの良い設計です。朝の使用でも不快感が出にくい仕様です。</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-num">Q04</span>
+          <span class="faq-q-text">敏感肌でも使えますか？</span>
+          <span class="faq-icon"></span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">シンプルな処方設計を意識しています。ご心配な場合はパッチテストを推奨します。</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-num">Q05</span>
+          <span class="faq-q-text">どのくらい持ちますか？</span>
+          <span class="faq-icon"></span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">1日1〜2回の使用で、約1ヶ月分を目安としています。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑨ CTAセクション（購入） -->
+<section class="cta" id="cta">
+  <img src="images/image09.png" alt="" class="cta-bg-img">
+  <div class="cta-inner">
+    <span class="cta-brand reveal">LUMEA SHIFT</span>
+    <h2 class="cta-headline reveal">
+      まず、1本持っておく。<br>
+      それだけでいい。
+    </h2>
+    <p class="cta-sub reveal">
+      完璧なスキンケアより、続けられる1本を。<br>
+      回数縛りなし、いつでも解約OK。
+    </p>
+    <div class="cta-price-box reveal">
+      <span class="cta-price-label">定期初回特別価格</span>
+      <div class="cta-price-regular">通常価格 ¥3,980（税込）</div>
+      <div class="cta-price-row">
+        <span class="cta-price-yen">¥</span>
+        <span class="cta-price-main">1,980</span>
+        <span style="font-size: 14px; color: rgba(255,255,255,0.5);">税込 / 初回</span>
+      </div>
+      <!-- 【変更14】バッジを先に、price-noteを後に（CV直前の不安排除） -->
+      <div class="cta-badges">
+        <span class="cta-badge">回数縛りなし</span>
+        <span class="cta-badge">初回送料無料</span>
+        <span class="cta-badge">いつでも解約OK</span>
+      </div>
+      <div class="cta-price-note">2回目以降 ¥3,480（税込）＋送料 ¥550</div>
+    </div>
+    <!-- 【変更15】「定期コース…」→「まず1本…」（縛りの連想を回避） -->
+    <a href="#" class="cta-btn reveal">まず1本、試してみる →</a>
+    <a href="#" class="cta-btn-sub reveal">1回だけ購入する（¥3,980）</a>
+  </div>
+</section>
+
+<!-- フッター -->
+<footer>
+  <div class="footer-logo">LUMEA SHIFT</div>
+  <div class="footer-links">
+    <a href="#">特定商取引法に基づく表示</a>
+    <a href="#">プライバシーポリシー</a>
+    <a href="#">お問い合わせ</a>
+  </div>
+  <div class="footer-copy">
+    © 2024 LUMEA BEAUTY株式会社. All Rights Reserved.
+  </div>
+</footer>  <script src="script.js"></script>
+</body>
+</html>
