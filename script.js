@@ -58,13 +58,13 @@ function toggleFaq(el) {
 // スマホ固定CTAバーの表示制御
 // FVのボタンが消えたら表示、CTAセクション到達で非表示
 // ============================================
-const stickyCta = document.getElementById('stickyCta');
-const fvBtn = document.querySelector('.fv-btn');
+const stickyCta  = document.getElementById('stickyCta');
+const fvBtn      = document.querySelector('.fv-btn');
 const ctaSection = document.getElementById('cta');
 
 if (stickyCta && fvBtn && ctaSection) {
-  let fvBtnVisible = true;
-  let ctaVisible = false;
+  let fvBtnVisible  = true;
+  let ctaVisible    = false;
 
   function updateStickyVisibility() {
     if (!fvBtnVisible && !ctaVisible) {
