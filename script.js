@@ -11,16 +11,8 @@ window.addEventListener('load', () => {
 
 // ============================================
 // スクロールでナビゲーションスタイル変更
-// 少しスクロールしたら背景を白に
+// → SP用ブラッシュアップによりナビゲーション削除のため不要
 // ============================================
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => {
-  if (window.scrollY > 80) {
-    nav.classList.add('scrolled');
-  } else {
-    nav.classList.remove('scrolled');
-  }
-});
 
 // ============================================
 // スクロールアニメーション
@@ -52,6 +44,16 @@ function toggleFaq(el) {
   const isOpen = item.classList.contains('open');
   document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
   if (!isOpen) item.classList.add('open');
+}
+
+// ============================================
+// 成分セクション：全成分アコーディオン
+// ボタンクリックで展開・閉じる
+// ============================================
+function toggleIngredients(btn) {
+  // ボタンの親要素（.ingredients-all）にopenクラスを付け外し
+  const wrapper = btn.closest('.ingredients-all');
+  wrapper.classList.toggle('open');
 }
 
 // ============================================

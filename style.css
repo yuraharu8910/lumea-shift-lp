@@ -189,75 +189,8 @@ body {
 
 /* ============================================
    ナビゲーション（固定ヘッダー）
+   → SP用ブラッシュアップにより削除
    ============================================ */
-.nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
-  padding: 20px 40px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition: background 0.4s ease, padding 0.4s ease;
-}
-
-.nav.scrolled {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  padding: 14px 40px;
-  box-shadow: 0 1px 20px rgba(0, 0, 0, 0.06);
-}
-
-.nav-logo {
-  font-family: var(--font-en);
-  font-size: 20px;
-  font-weight: 300;
-  letter-spacing: 0.2em;
-  color: var(--white);
-  text-decoration: none;
-  transition: color 0.4s ease;
-}
-
-.nav.scrolled .nav-logo {
-  color: var(--text);
-}
-
-.nav-cta {
-  background: var(--accent);
-  /* ベージュで塗りつぶし */
-  border: 1px solid var(--accent);
-  /* 枠線も同色に */
-  color: var(--white);
-  padding: 10px 24px;
-  font-family: var(--font-ja);
-  font-size: 12px;
-  letter-spacing: 0.1em;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-decoration: none;
-}
-
-.nav-cta:hover {
-  background: #c4af93;
-  /* ホバーで少し暗いベージュに */
-  border-color: #c4af93;
-  color: var(--white);
-}
-
-/* スクロール後も同じベージュを維持 */
-.nav.scrolled .nav-cta {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: var(--white);
-}
-
-.nav.scrolled .nav-cta:hover {
-  background: #c4af93;
-  border-color: #c4af93;
-  color: var(--white);
-}
 
 /* ============================================
    FV（ファーストビュー）
@@ -281,6 +214,23 @@ body {
   height: 100%;
   object-fit: cover;
   object-position: center;
+}
+
+/* FV左上ロゴ
+   position:absolute でFVセクション内の左上に配置
+   fixed ではないのでスクロールしても追従しない */
+.fv-logo {
+  position: absolute;       /* FVセクション基準で配置 */
+  top: 28px;
+  left: clamp(24px, 5vw, 40px);
+  z-index: 3;               /* 動画・オーバーレイより前面に */
+  font-family: var(--font-en);
+  font-size: 18px;
+  font-weight: 300;
+  letter-spacing: 0.25em;
+  color: var(--white);
+  text-decoration: none;
+  animation: fadeInUp 0.8s ease 0.2s both; /* FVの他要素と同じフェードイン */
 }
 
 /* 動画の上に暗いオーバーレイ */
@@ -450,83 +400,119 @@ section {
 
 /* ============================================
    共感セクション（②悩み）
-   疲れた夜の情景
+   スクショ参考：背景画像＋中央タイトル＋ガラスカード縦並び
    ============================================ */
 .pain {
-  background: var(--dark);
-  padding: clamp(80px, 12vw, 160px) 0;
+  position: relative;        /* 背景画像・オーバーレイの基準点 */
+  padding: clamp(80px, 12vw, 140px) 0;
   color: var(--white);
+  overflow: hidden;
 }
 
-.pain-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 clamp(24px, 5vw, 80px);
-}
-
-.pain-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
-  align-items: center;
-}
-
-.pain-img {
+/* 背景画像：benefitセクションの動画と同じポジショニング */
+.pain-bg-img {
+  position: absolute;
+  inset: 0;                  /* top/right/bottom/left を全部0に */
   width: 100%;
-  aspect-ratio: 1 / 1;
-  /* 3/4（縦長）→ 1/1（正方形）にして正円にする */
+  height: 100%;
   object-fit: cover;
-  filter: brightness(0.85);
-  border-radius: 50%;
-  /* 完全な丸（円形） */
+  object-position: center top; /* 顔が見える上寄り */
+  filter: brightness(0.8);   /* スクショに合わせて明るめに調整 */
 }
 
-.pain-text .section-label {
+/* 背景を暗くするグラデーションオーバーレイ */
+.pain-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.2) 0%,   /* スクショに合わせて薄く */
+    rgba(0, 0, 0, 0.3) 100%
+  );
+}
+
+/* コンテンツ全体：z-indexで背景より前面に */
+.pain-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 600px;          /* カード幅に合わせた中央寄せ */
+  margin: 0 auto;
+  padding: 0 clamp(20px, 5vw, 40px);
+}
+
+/* タイトルエリア：中央揃え */
+.pain-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.pain-header .section-label {
   color: var(--accent);
 }
 
-.pain-text .section-title {
+/* メインタイトル */
+.pain-title {
+  font-family: var(--font-ja);
+  font-size: clamp(22px, 5vw, 36px);
+  font-weight: 300;
+  line-height: 1.6;
   color: var(--white);
 }
 
-.pain-items {
-  margin-top: 32px;
+/* カードのコンテナ：縦一列 */
+.pain-cards {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-}
-
-.pain-item {
-  display: flex;
   gap: 16px;
-  align-items: flex-start;
-  padding: 20px;
-  border-left: 2px solid rgba(212, 191, 163, 0.3);
-  transition: border-color 0.3s ease;
 }
 
-.pain-item:hover {
+/* ガラスカード（glassmorphism）
+   backdrop-filter：背景をぼかしてすりガラス風に
+   スクショ準拠：アイコン・テキストを縦に積んで中央揃え
+   benefitカードと同じ transition + hover を適用 */
+.pain-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+  padding: 32px 24px;
+  background: rgba(255, 255, 255, 0.05);   /* benefit-pointと同じ初期値 */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-md);
+  /* benefit-pointと同じtransition */
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+/* benefit-point:hover と同じホバー効果 */
+.pain-card:hover {
+  background: rgba(255, 255, 255, 0.1);
   border-color: var(--accent);
 }
 
 .pain-item-icon {
-  font-size: 18px;
   flex-shrink: 0;
-  margin-top: 2px;
+  display: flex;              /* SVGを中央に揃えるためflexに */
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
 }
 
-.pain-item-text {
+/* カード内テキストエリア */
+.pain-card-body {
   font-size: 14px;
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(255, 255, 255, 0.8);
   line-height: 1.8;
 }
 
-.pain-item-text strong {
+.pain-card-body strong {
   display: block;
   color: var(--white);
   font-weight: 400;
-  margin-bottom: 4px;
   font-size: 15px;
+  margin-bottom: 4px;
 }
 
 /* ============================================
@@ -872,9 +858,10 @@ section {
 }
 
 .benefit-point-icon {
-  font-size: 28px;
   margin-bottom: 16px;
-  display: block;
+  display: flex;              /* SVGを中央に揃えるためflexに */
+  align-items: center;
+  justify-content: center;
 }
 
 .benefit-point h3 {
@@ -1071,7 +1058,216 @@ section {
 }
 
 /* ============================================
-   CTAセクション（⑨購入）
+   成分セクション（⑨）
+   FAQとCTAの間に配置
+   ============================================ */
+.ingredients {
+  padding: clamp(80px, 12vw, 160px) 0;
+  background: var(--secondary);   /* FAQの白と区別するライトグレー */
+  position: relative;              /* 背景画像・オーバーレイの基準点 */
+  overflow: hidden;                /* 画像がセクション外にはみ出さないように */
+}
+
+/* 背景画像：painセクション・CTAと同じポジショニング */
+.ingredients-bg-img {
+  position: absolute;   /* セクション内に絶対配置 */
+  inset: 0;             /* top/right/bottom/left を全部0（= 全面に広げる） */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;    /* 縦横比を保ちつつ全体を埋める */
+  object-position: center top; /* 人物の顔が上にくるよう上寄せ */
+  z-index: 0;           /* テキストより背面に */
+}
+
+/* オーバーレイ：背景を白っぽく薄めてテキストを読みやすくする */
+/* 数値を変えると透明度が調整できます：0.75 → 0.6 で画像を濃く見せる */
+.ingredients-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(245, 245, 245, 0.82); /* --secondary（#F5F5F5）の色に合わせた半透明 */
+  z-index: 1;
+}
+
+/* .ingredients-inner を背景より前面に出す */
+.ingredients-inner {
+  position: relative; /* z-indexを有効にするためにpositionを指定 */
+  z-index: 2;         /* 背景・オーバーレイより前面に */
+}
+
+.ingredients-inner {
+  position: relative; /* ← 上の.ingredientsブロック内で定義済み（重複を避けるためz-index:2のみ追記） */
+  z-index: 2;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 5vw, 60px);
+}
+
+/* ヘッダーエリア：中央揃え */
+.ingredients-header {
+  text-align: center;
+  margin-bottom: 56px;
+}
+
+/* リード文：タイトル直下の補足テキスト */
+.ingredients-lead {
+  font-size: 14px;
+  color: var(--text-light);
+  line-height: 2;
+  margin-top: 8px;
+}
+
+/* カードを3列グリッドで並べる */
+.ingredients-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+/* 各カード */
+.ingredients-card {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  padding: 28px 24px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+/* カテゴリラベル：「保湿」「バリアサポート」「整肌」 */
+.ingredients-card-label {
+  font-family: var(--font-en);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--primary); /* アクセントカラーの薄いライン */
+}
+
+/* 成分リスト */
+.ingredients-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ingredients-list li {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* 成分名 */
+.ing-name {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text);
+}
+
+/* 成分の説明 */
+.ing-desc {
+  font-size: 12px;
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+/* 全成分アコーディオンエリア */
+.ingredients-all {
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  padding-top: 24px;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* 展開ボタン */
+.ingredients-all-btn {
+  background: none;
+  border: 1px solid var(--accent);
+  color: var(--text-light);
+  font-family: var(--font-ja);
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  padding: 12px 32px;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+}
+
+.ingredients-all-btn:hover {
+  background: var(--primary);
+  color: var(--text);
+}
+
+/* ボタン内の＋アイコン（FAQと同じ仕組み） */
+.ingredients-all-icon {
+  width: 16px;
+  height: 16px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.ingredients-all-icon::before,
+.ingredients-all-icon::after {
+  content: '';
+  position: absolute;
+  background: var(--text-light);
+  transition: all 0.3s ease;
+}
+
+.ingredients-all-icon::before {
+  width: 12px;
+  height: 1px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.ingredients-all-icon::after {
+  width: 1px;
+  height: 12px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* open時：縦線を消して × → ＋になる */
+.ingredients-all.open .ingredients-all-icon::after {
+  opacity: 0;
+}
+
+/* 全成分テキストエリア：max-heightで展開アニメーション */
+.ingredients-all-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+}
+
+.ingredients-all.open .ingredients-all-body {
+  max-height: 200px;
+}
+
+/* 全成分テキスト */
+.ingredients-all-text {
+  font-size: 12px;
+  color: var(--text-light);
+  line-height: 2;
+  padding: 20px 0 8px;
+}
+
+/* 注意書き */
+.ingredients-all-note {
+  font-size: 11px;
+  color: rgba(0, 0, 0, 0.35);
+  padding-bottom: 8px;
+}
+
+/* ============================================
+   CTAセクション（⑩購入）
    ============================================ */
 .cta {
   padding: clamp(80px, 12vw, 160px) 0;
@@ -1289,44 +1485,18 @@ footer {
 @media (max-width: 768px) {
 
   /* --- グリッド系：全て1カラムに --- */
-  .pain-grid,
   .solution-grid,
   .product-features,
   .scene-grid,
   .benefit-points,
-  .reviews-grid {
+  .reviews-grid,
+  .ingredients-grid {           /* 成分カードも1カラムに */
     grid-template-columns: 1fr;
   }
-
-  /* --- 悩みセクション：スマホでは「テキスト→画像」の順にする --- */
-  /* order プロパティでHTML順序を変えずに表示順を制御 */
-  .pain-grid {
-    gap: 40px;
-  }
-
-  .pain-img {
-    order: 2;
-  }
-
-  /* 画像を後ろに */
-  .pain-text {
-    order: 1;
-  }
-
-  /* テキストを先に */
 
   /* --- 解決セクション --- */
   .solution-grid {
     gap: 40px;
-  }
-
-  /* --- ナビゲーション --- */
-  .nav {
-    padding: 16px 20px;
-  }
-
-  .nav.scrolled {
-    padding: 12px 20px;
   }
 
   /* --- FV（ファーストビュー） --- */
@@ -1365,12 +1535,6 @@ footer {
    ============================================ */
 @media (max-width: 480px) {
 
-  /* --- ナビ：CTAボタンを小さく、タップしやすく --- */
-  .nav-cta {
-    padding: 8px 16px;
-    font-size: 11px;
-  }
-
   /* --- FV：ヘッドラインの行間を少し詰める --- */
   .fv-headline {
     line-height: 1.45;
@@ -1382,9 +1546,9 @@ footer {
     display: none;
   }
 
-  /* --- 悩みセクション：左ボーダーアイテムをコンパクトに --- */
-  .pain-item {
-    padding: 14px 12px;
+  /* --- 悩みセクション：カードのpadding縮小 --- */
+  .pain-card {
+    padding: 18px 16px;
   }
 
   /* --- 商品説明：feature-cardのレイアウト調整（スクショに合わせて修正） --- */
