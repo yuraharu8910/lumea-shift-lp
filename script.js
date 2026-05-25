@@ -95,3 +95,50 @@ if (stickyCta && fvBtn && ctaSection) {
   fvObserver.observe(fvBtn);
   ctaObserver.observe(ctaSection);
 }
+
+// ============================================
+// PC固定CTAバーの表示制御
+// SP版と同じロジック：
+//   ・FVのボタンが画面から消えたら表示
+//   ・CTAセクションが見えたら非表示
+// ============================================
+const stickyCtaPc = document.getElementById('stickyCtaPc');
+
+// SP版と同じ fvBtn・ctaSection を再利用
+if (stickyCtaPc && fvBtn && ctaSection) {
+  let fvBtnVisiblePc = true; // FVボタンが見えているか
+  let ctaVisiblePc   = false; // CTAセクションが見えているか
+
+  // 表示・非表示を切り替える関数
+  function updateStickyPcVisibility() {
+    if (!fvBtnVisiblePc && !ctaVisiblePc) {
+      // FVボタンが消えて、かつCTAセクションがまだ見えていない → 表示
+      stickyCtaPc.classList.remove('hidden');
+    } else {
+      // それ以外 → 非表示
+      stickyCtaPc.classList.add('hidden');
+    }
+  }
+
+  // 初期状態は非表示
+  stickyCtaPc.classList.add('hidden');
+
+  // FVボタンの監視（SP版とは別のObserverインスタンスを使う）
+  const fvObserverPc = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      fvBtnVisiblePc = entry.isIntersecting;
+      updateStickyPcVisibility();
+    });
+  }, { threshold: 0 });
+
+  // CTAセクションの監視
+  const ctaObserverPc = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      ctaVisiblePc = entry.isIntersecting;
+      updateStickyPcVisibility();
+    });
+  }, { threshold: 0.1 });
+
+  fvObserverPc.observe(fvBtn);
+  ctaObserverPc.observe(ctaSection);
+}

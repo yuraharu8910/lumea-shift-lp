@@ -1744,6 +1744,130 @@ footer {
   display: none;
 }
 
+/* ============================================
+   PC固定CTAバー（481px以上のみ表示）
+   画面下部に横長バーとして固定表示
+   ============================================ */
+
+/* デフォルトは非表示（初期状態）
+   SPでは常にdisplay:none にしてSP用と競合しないようにする */
+.sticky-cta-pc {
+  display: none; /* JSで show/hideするが、まずSPでは見せない */
+}
+
+/* 481px以上（PCサイズ）だけ有効にする */
+@media (min-width: 481px) {
+  .sticky-cta-pc {
+    display: block;           /* ブロック要素として存在させる */
+    position: fixed;          /* スクロールしても画面下部に固定 */
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 200;             /* 他の要素より手前に表示 */
+    background: rgba(26, 26, 26, 0.96); /* --dark を半透明で使用 */
+    backdrop-filter: blur(8px); /* 背景をすりガラス風にぼかす */
+    box-shadow: 0 -2px 24px rgba(0, 0, 0, 0.2);
+    /* ↓ 下からスライドイン／アウトのアニメーション */
+    transition: transform 0.4s ease, opacity 0.4s ease;
+  }
+
+  /* .hidden クラスが付いたら画面外に隠す（SPと同じ仕組み） */
+  .sticky-cta-pc.hidden {
+    transform: translateY(100%); /* 下に100%ずらして画面外へ */
+    opacity: 0;
+    pointer-events: none;        /* 隠れているときはクリック無効 */
+  }
+
+  /* バー内のレイアウト：左テキスト・右ボタンを横並びに */
+  .sticky-cta-pc-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 16px clamp(24px, 5vw, 60px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* 左右に振り分け */
+    gap: 24px;
+  }
+
+  /* 左：ブランド名とキャッチコピーの縦並び */
+  .sticky-cta-pc-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .sticky-cta-pc-brand {
+    font-family: var(--font-en);
+    font-size: 13px;
+    font-weight: 300;
+    letter-spacing: 0.25em;
+    color: var(--accent);          /* ブランドカラーのベージュ */
+  }
+
+  .sticky-cta-pc-copy {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.65);
+    letter-spacing: 0.05em;
+  }
+
+  /* 右：価格情報とボタンを横並び */
+  .sticky-cta-pc-action {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    flex-shrink: 0; /* 右側が縮まないように */
+  }
+
+  /* 価格表示エリア */
+  .sticky-cta-pc-price {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* 右寄せ */
+    gap: 2px;
+  }
+
+  .sticky-cta-pc-price-label {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.45);
+  }
+
+  .sticky-cta-pc-price-num {
+    font-family: var(--font-en);
+    font-size: 22px;
+    font-weight: 300;
+    color: var(--white);
+    letter-spacing: 0.05em;
+    line-height: 1;
+  }
+
+  .sticky-cta-pc-price-note {
+    font-size: 10px;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+
+  /* CTAボタン：FVボタンと同じスタイルをベースに */
+  .sticky-cta-pc-btn {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--white);
+    padding: 14px 36px;
+    font-family: var(--font-ja);
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    text-decoration: none;
+    border-radius: var(--radius-lg); /* 両サイドを丸く */
+    transition: background 0.3s ease, letter-spacing 0.3s ease;
+    white-space: nowrap;             /* テキストの折り返しを防ぐ */
+  }
+
+  .sticky-cta-pc-btn:hover {
+    background: #c4af93;            /* ホバーで少し暗いベージュ */
+    letter-spacing: 0.2em;
+  }
+}
+
 @media (max-width: 480px) {
   .sticky-cta {
     display: flex;

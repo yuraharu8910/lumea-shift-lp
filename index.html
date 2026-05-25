@@ -618,10 +618,31 @@
     </div>
   </section>
 
-  <!-- スマホ固定CTAバー -->
+  <!-- スマホ固定CTAバー（480px以下のみ表示） -->
   <div class="sticky-cta" id="stickyCta">
     <a href="#cta" class="sticky-cta-btn">まず1本、試してみる →</a>
     <p class="sticky-cta-note">初回 ¥1,980・回数縛りなし・いつでも解約OK</p>
+  </div>
+
+  <!-- PC固定CTAバー（481px以上のみ表示） -->
+  <!-- SPの固定CTAとは別要素にすることで、それぞれに最適なデザインを適用できる -->
+  <div class="sticky-cta-pc" id="stickyCtaPc">
+    <div class="sticky-cta-pc-inner">
+      <!-- 左：ブランド名＋キャッチコピー -->
+      <div class="sticky-cta-pc-text">
+        <span class="sticky-cta-pc-brand">LUMEA SHIFT</span>
+        <span class="sticky-cta-pc-copy">忙しくても、整える。1本で完結するオールインワン美容液。</span>
+      </div>
+      <!-- 右：価格＋ボタン -->
+      <div class="sticky-cta-pc-action">
+        <div class="sticky-cta-pc-price">
+          <span class="sticky-cta-pc-price-label">初回特別価格</span>
+          <span class="sticky-cta-pc-price-num">¥1,980</span>
+          <span class="sticky-cta-pc-price-note">回数縛りなし</span>
+        </div>
+        <a href="#cta" class="sticky-cta-pc-btn">まず1本、試してみる →</a>
+      </div>
+    </div>
   </div>
 
   <!-- フッター -->
