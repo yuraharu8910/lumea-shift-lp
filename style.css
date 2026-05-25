@@ -1172,22 +1172,21 @@ section {
 
 /* バブル① 保湿：左（少し小さめ・左にオフセット） */
 .ing-bubble--1 {
-  width: clamp(140px, 26vw, 210px);
-  height: clamp(140px, 26vw, 210px);
-  /* 中央から均一に広がるベージュ：白い偏りをなくす */
+  width: clamp(110px, 18vw, 160px);
+  height: clamp(110px, 18vw, 160px);
   background: radial-gradient(
     circle at 50% 50%,
     rgba(234, 227, 217, 0.7) 0%,
     rgba(212, 191, 163, 0.55) 100%
   );
   z-index: 1;
-  margin-right: clamp(-40px, -7vw, -56px);
+  margin-right: clamp(-28px, -5vw, -40px);
 }
 
 /* バブル② バリアサポート：中央（最大・最前面） */
 .ing-bubble--2 {
-  width: clamp(170px, 32vw, 255px);
-  height: clamp(170px, 32vw, 255px);
+  width: clamp(135px, 22vw, 195px);
+  height: clamp(135px, 22vw, 195px);
   background: radial-gradient(
     circle at 50% 50%,
     rgba(234, 227, 217, 0.7) 0%,
@@ -1198,15 +1197,15 @@ section {
 
 /* バブル③ 整肌：右（少し小さめ・右にオフセット） */
 .ing-bubble--3 {
-  width: clamp(140px, 26vw, 210px);
-  height: clamp(140px, 26vw, 210px);
+  width: clamp(110px, 18vw, 160px);
+  height: clamp(110px, 18vw, 160px);
   background: radial-gradient(
     circle at 50% 50%,
     rgba(234, 227, 217, 0.7) 0%,
     rgba(212, 191, 163, 0.55) 100%
   );
   z-index: 2;
-  margin-left: clamp(-40px, -7vw, -56px);
+  margin-left: clamp(-28px, -5vw, -40px);
 }
 
 /* バブル内のテキスト配置 */
