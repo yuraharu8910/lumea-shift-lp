@@ -61,11 +61,6 @@
     <div class="loading-bar"></div>
   </div>
 
-  <!-- ナビゲーション -->
-  <nav class="nav" id="nav">
-    <a href="#" class="nav-logo">LUMEA SHIFT</a>
-  </nav>
-
   <!-- ① FV（ファーストビュー） -->
   <!-- 背景に動画_2を使用：夜のベッドサイドシーン -->
   <section class="fv">
@@ -75,6 +70,10 @@
       <source src="videos/video01.mp4" type="video/mp4">
     </video>
     <div class="fv-overlay"></div>
+
+    <!-- FV左上ロゴ：position:absoluteでFV内に固定。スクロールでは追従しない -->
+    <div class="fv-logo">LUMEA SHIFT</div>
+
     <div class="fv-content">
       <span class="fv-eyebrow">ALL IN ONE BEAUTY SERUM</span>
       <h1 class="fv-headline">
@@ -86,7 +85,8 @@
         忙しくても、整える。<br>
         1本で完結するオールインワン美容液。
       </p>
-      <a href="#cta" class="fv-btn">初回 ¥1,980 で試してみる</a>
+      <!-- background・borderはstyle.cssの.fv-btnで管理（インラインstyleを削除） -->
+      <button onclick="openModal()" class="fv-btn">初回 ¥1,980 で試してみる</button>
       <!-- 【変更8】ボタン直下に安心テキストを追加（縛りへの恐怖を早期解消） -->
       <p class="fv-btn-note">回数縛りなし・いつでも解約OK</p>
     </div>
@@ -97,40 +97,71 @@
   </section>
 
   <!-- ② 悩みセクション -->
-  <!-- 疲れた帰宅後の情景：静止画-10（うつ伏せ）を使用 -->
+  <!-- スクショ参考：背景画像の上にタイトル＋ガラスカード縦並び -->
   <section class="pain">
+
+    <!-- 背景画像（benefitセクションと同じ構造） -->
+    <img src="images/image01.png" alt="" class="pain-bg-img">
+    <!-- 背景を暗くするオーバーレイ -->
+    <div class="pain-overlay"></div>
+
     <div class="pain-inner">
-      <div class="pain-grid">
-        <img src="images/image01.png" alt="疲れた夜" class="pain-img reveal-left">
-        <div class="pain-text">
-          <span class="section-label reveal">Pain Point</span>
-          <h2 class="section-title reveal" style="color: var(--white);">
-            続かないのは、<br>あなたのせいじゃない。
-          </h2>
-          <div class="pain-items">
-            <div class="pain-item reveal">
-              <span class="pain-item-icon">🌙</span>
-              <div class="pain-item-text">
-                <strong>21時帰宅、洗顔で終わり</strong>
-                化粧水、美容液、乳液——疲れた夜に複数ステップは続かない
-              </div>
-            </div>
-            <div class="pain-item reveal reveal--delay-1">
-              <span class="pain-item-icon">⏰</span>
-              <div class="pain-item-text">
-                <strong>朝は時間がない</strong>
-                義務感でやろうとするほど、スキンケアが重荷になっていく
-              </div>
-            </div>
-            <div class="pain-item reveal reveal--delay-2">
-              <span class="pain-item-icon">💸</span>
-              <div class="pain-item-text">
-                <strong>効果がわからないまま定期縛り</strong>
-                試してみたいけど、続ける自信がないまま高額購入は怖い
-              </div>
-            </div>
+
+      <!-- タイトルエリア：中央揃え -->
+      <div class="pain-header">
+        <span class="section-label reveal">Pain Point</span>
+        <h2 class="pain-title reveal">
+          続かないのは、<br>あなたのせいじゃない。
+        </h2>
+      </div>
+
+      <!-- カード3枚：縦に並べる -->
+      <div class="pain-cards">
+
+        <div class="pain-card reveal">
+          <!-- 月アイコン：夜・帰宅のイメージ -->
+          <span class="pain-item-icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M27 17.5A11 11 0 0 1 14.5 5a11 11 0 1 0 12.5 12.5z" stroke="#D4BFA3" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </span>
+          <div class="pain-card-body">
+            <strong>21時帰宅、洗顔で終わり</strong>
+            化粧水、美容液、乳液——疲れた夜に複数ステップは続かない
           </div>
         </div>
+
+        <div class="pain-card reveal reveal--delay-1">
+          <!-- 時計アイコン：朝の忙しさのイメージ -->
+          <span class="pain-item-icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="16" cy="16" r="11" stroke="#D4BFA3" stroke-width="1.5" />
+              <path d="M16 10v6l4 2" stroke="#D4BFA3" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </span>
+          <div class="pain-card-body">
+            <strong>朝は時間がない</strong>
+            義務感でやろうとするほど、スキンケアが重荷になっていく
+          </div>
+        </div>
+
+        <div class="pain-card reveal reveal--delay-2">
+          <!-- タグアイコン：縛り・価格のイメージ -->
+          <span class="pain-item-icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 16V6h10l12 12-10 10L4 16z" stroke="#D4BFA3" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round" />
+              <circle cx="10" cy="10" r="1.5" fill="#D4BFA3" />
+            </svg>
+          </span>
+          <div class="pain-card-body">
+            <strong>効果がわからないまま定期縛り</strong>
+            試してみたいけど、続ける自信がないまま高額購入は怖い
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -162,7 +193,9 @@
               align-items: center; justify-content: center;
               flex-shrink: 0;
               text-align: center;">
-              <div style="font-family: var(--font-en); font-size: clamp(28px, 4vw, 42px); font-weight: 300; color: var(--accent);">1</div>
+              <div
+                style="font-family: var(--font-en); font-size: clamp(28px, 4vw, 42px); font-weight: 300; color: var(--accent);">
+                1</div>
               <div style="font-size: 13px; margin-top: 4px;">本で完結</div>
             </div>
             <div class="reveal reveal--delay-1" style="
@@ -174,7 +207,9 @@
               align-items: center; justify-content: center;
               flex-shrink: 0;
               text-align: center;">
-              <div style="font-family: var(--font-en); font-size: clamp(28px, 4vw, 42px); font-weight: 300; color: var(--accent);">朝夜</div>
+              <div
+                style="font-family: var(--font-en); font-size: clamp(28px, 4vw, 42px); font-weight: 300; color: var(--accent);">
+                朝夜</div>
               <div style="font-size: 13px; margin-top: 4px;">どちらも使える</div>
             </div>
           </div>
@@ -289,21 +324,40 @@
       </h2>
       <div class="benefit-points">
         <div class="benefit-point reveal">
-          <span class="benefit-point-icon">💧</span>
+          <!-- 水滴アイコン：うるおい・続けやすさのイメージ -->
+          <span class="benefit-point-icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16 4C16 4 7 14 7 19.5a9 9 0 0 0 18 0C25 14 16 4 16 4z" stroke="#D4BFA3" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </span>
           <h3>続けやすい</h3>
           <!-- 【変更12】体感変化の一文を追加（購入動機・変化期待の強化） -->
           <p>1本だから、面倒がない。だから続く。<br>
             朝の乾燥が気になりにくくなる。</p>
         </div>
         <div class="benefit-point reveal reveal--delay-1">
-          <span class="benefit-point-icon">✨</span>
+          <!-- スパークアイコン：整える・輝きのイメージ -->
+          <span class="benefit-point-icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16 4v24M4 16h24" stroke="#D4BFA3" stroke-width="1.5" stroke-linecap="round" />
+              <path d="M8.7 8.7l14.6 14.6M23.3 8.7L8.7 23.3" stroke="#D4BFA3" stroke-width="1" stroke-linecap="round" />
+            </svg>
+          </span>
           <h3>整える</h3>
           <!-- 【変更12】体感変化の一文を追加 -->
           <p>完璧ではなく、最低限を毎日積み重ねる。<br>
             メイク前でも肌がカサついて見えにくい。</p>
         </div>
         <div class="benefit-point reveal reveal--delay-2">
-          <span class="benefit-point-icon">🌿</span>
+          <!-- 葉アイコン：清潔感・ナチュラルのイメージ -->
+          <span class="benefit-point-icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 26c0 0 2-10 8-14 4-2.7 10-3 12-3 0 2-.3 8-3 12-4 6-14 7-14 7" stroke="#D4BFA3"
+                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M8 26c4-4 8-8 8-8" stroke="#D4BFA3" stroke-width="1.5" stroke-linecap="round" />
+            </svg>
+          </span>
           <h3>清潔感</h3>
           <!-- 【変更12】体感変化の一文を追加 -->
           <p>仕事前の「ちゃんとしてる」安心感へ。<br>
@@ -422,7 +476,148 @@
     </div>
   </section>
 
-  <!-- ⑨ CTAセクション（購入） -->
+  <!-- ⑨ 成分セクション -->
+  <section class="ingredients">
+
+    <!-- 背景画像：痛みセクション・CTAと同じ構造で追加 -->
+    <!-- images/ フォルダに ChatGPT_Image_2026年5月24日_18_22_51.png を配置し、
+         ファイル名を ingredients-bg.png などにリネームしてご利用ください -->
+    <img src="images/ingredients-bg.png" alt="" class="ingredients-bg-img">
+    <!-- 背景を明るく保つオーバーレイ（白ベースで半透明） -->
+    <div class="ingredients-overlay"></div>
+
+    <div class="ingredients-inner">
+
+      <div class="ingredients-header">
+        <span class="section-label reveal">Ingredients</span>
+        <h2 class="section-title reveal">主な配合成分</h2>
+        <p class="ingredients-lead reveal">
+          肌に必要なものだけを、シンプルに。<br>
+          保湿・バリア・整肌の3軸でスキンケアを完結させます。
+        </p>
+      </div>
+
+      <!-- ★ 3軸バブルビジュアル（参考画像のような丸いモチーフ） -->
+      <!-- CSSだけで水玉を描画しています。画像は不要です。 -->
+      <div class="ing-bubbles reveal">
+
+        <!-- 保湿バブル -->
+        <div class="ing-bubble ing-bubble--1">
+          <div class="ing-bubble-inner">
+            <span class="ing-bubble-en">Moisture</span>
+            <span class="ing-bubble-ja">保湿</span>
+            <span class="ing-bubble-desc">うるおいを<br>抱える</span>
+          </div>
+        </div>
+
+        <!-- バリアサポートバブル（少し大きめ・中央） -->
+        <div class="ing-bubble ing-bubble--2">
+          <div class="ing-bubble-inner">
+            <span class="ing-bubble-en">Barrier</span>
+            <span class="ing-bubble-ja">バリア</span>
+            <span class="ing-bubble-desc">外的刺激から<br>肌を守る</span>
+          </div>
+        </div>
+
+        <!-- 整肌バブル -->
+        <div class="ing-bubble ing-bubble--3">
+          <div class="ing-bubble-inner">
+            <span class="ing-bubble-en">Condition</span>
+            <span class="ing-bubble-ja">整肌</span>
+            <span class="ing-bubble-desc">キメを整え<br>輝く肌へ</span>
+          </div>
+        </div>
+
+      </div><!-- /.ing-bubbles -->
+
+      <!-- 成分グループ：効能カテゴリ別に3枚のカードで表示 -->
+      <div class="ingredients-grid">
+
+        <!-- 保湿グループ -->
+        <div class="ingredients-card reveal">
+          <div class="ingredients-card-label">保湿</div>
+          <ul class="ingredients-list">
+            <li>
+              <span class="ing-name">グリセリン</span>
+              <span class="ing-desc">肌の水分を抱え込む、基本の保湿成分</span>
+            </li>
+            <li>
+              <span class="ing-name">BG</span>
+              <span class="ing-desc">さらっとした使用感の保湿剤</span>
+            </li>
+            <li>
+              <span class="ing-name">ヒアルロン酸Na</span>
+              <span class="ing-desc">高い保水力で肌をふっくらさせる</span>
+            </li>
+            <li>
+              <span class="ing-name">加水分解コラーゲン</span>
+              <span class="ing-desc">肌なじみの良い保湿タンパク質</span>
+            </li>
+            <li>
+              <span class="ing-name">PCA-Na</span>
+              <span class="ing-desc">肌本来の天然保湿因子（NMF）と同じ成分</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- バリアサポートグループ -->
+        <div class="ingredients-card reveal reveal--delay-1">
+          <div class="ingredients-card-label">バリアサポート</div>
+          <ul class="ingredients-list">
+            <li>
+              <span class="ing-name">セラミドNP</span>
+              <span class="ing-desc">角層のバリア機能を補い、水分を逃しにくくする</span>
+            </li>
+            <li>
+              <span class="ing-name">スクワラン</span>
+              <span class="ing-desc">肌なじみの良いオイル。べたつかずにしっとり感をキープ</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 整肌グループ -->
+        <div class="ingredients-card reveal reveal--delay-2">
+          <div class="ingredients-card-label">整肌</div>
+          <ul class="ingredients-list">
+            <li>
+              <span class="ing-name">ナイアシンアミド</span>
+              <span class="ing-desc">肌のキメを整え、くすみにもアプローチ</span>
+            </li>
+            <li>
+              <span class="ing-name">アラントイン</span>
+              <span class="ing-desc">肌荒れを防ぎ、なめらかに整える</span>
+            </li>
+            <li>
+              <span class="ing-name">カミツレ花エキス</span>
+              <span class="ing-desc">カモミール由来。肌を穏やかに整える植物エキス</span>
+            </li>
+          </ul>
+        </div>
+
+      </div><!-- /.ingredients-grid -->
+
+      <!-- 全成分：アコーディオンで展開 -->
+      <div class="ingredients-all reveal">
+        <button class="ingredients-all-btn" onclick="toggleIngredients(this)">
+          全成分を見る
+          <span class="ingredients-all-icon"></span>
+        </button>
+        <div class="ingredients-all-body">
+          <p class="ingredients-all-text">
+            水、グリセリン、BG、ヒアルロン酸Na、加水分解コラーゲン、セラミドNP、
+            ナイアシンアミド、アラントイン、カミツレ花エキス、PCA-Na、スクワラン、
+            フェノキシエタノール
+          </p>
+          <p class="ingredients-all-note">
+            ※上記は主な配合成分のイメージです。実際の全成分表示は製品パッケージをご確認ください。
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ⑩ CTAセクション（購入） -->
   <section class="cta" id="cta">
     <img src="images/image09.png" alt="" class="cta-bg-img">
     <div class="cta-inner">
@@ -451,17 +646,282 @@
         </div>
         <div class="cta-price-note">2回目以降 ¥3,480（税込）＋送料 ¥550</div>
       </div>
-      <!-- 【変更15】「定期コース…」→「まず1本…」（縛りの連想を回避） -->
-      <a href="#" class="cta-btn reveal">まず1本、試してみる →</a>
-      <a href="#" class="cta-btn-sub reveal">1回だけ購入する（¥3,980）</a>
+      <!-- ボタンクリックでお問い合わせモーダルを開く -->
+      <!-- onclick="openModal()" → script.js の openModal 関数を呼び出す -->
+      <button onclick="openModal()" class="cta-btn reveal" style="cursor:pointer; border:none; width:100%;">まず1本、試してみる →</button>
+      <button onclick="openModal()" class="cta-btn-sub reveal" style="cursor:pointer; border:none; width:100%; background:none;">1回だけ購入する（¥3,980）</button>
     </div>
   </section>
 
-  <!-- スマホ固定CTAバー -->
+  <!-- スマホ固定CTAバー（480px以下のみ表示） -->
   <div class="sticky-cta" id="stickyCta">
-    <a href="#cta" class="sticky-cta-btn">まず1本、試してみる →</a>
+    <button onclick="openModal()" class="sticky-cta-btn" style="cursor:pointer; border:none; width:100%; background:none;">まず1本、試してみる →</button>
     <p class="sticky-cta-note">初回 ¥1,980・回数縛りなし・いつでも解約OK</p>
   </div>
+
+  <!-- PC固定CTAバー（481px以上のみ表示） -->
+  <!-- SPの固定CTAとは別要素にすることで、それぞれに最適なデザインを適用できる -->
+  <div class="sticky-cta-pc" id="stickyCtaPc">
+    <div class="sticky-cta-pc-inner">
+      <!-- 左：ブランド名＋キャッチコピー -->
+      <div class="sticky-cta-pc-text">
+        <span class="sticky-cta-pc-brand">LUMEA SHIFT</span>
+        <span class="sticky-cta-pc-copy">忙しくても、整える。1本で完結するオールインワン美容液。</span>
+      </div>
+      <!-- 右：価格＋ボタン -->
+      <div class="sticky-cta-pc-action">
+        <div class="sticky-cta-pc-price">
+          <span class="sticky-cta-pc-price-label">初回特別価格</span>
+          <span class="sticky-cta-pc-price-num">¥1,980</span>
+          <span class="sticky-cta-pc-price-note">回数縛りなし</span>
+        </div>
+        <button onclick="openModal()" class="sticky-cta-pc-btn" style="cursor:pointer; border:none;">まず1本、試してみる →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+     購入 モーダル（ポップアップフォーム）
+     .modal-overlay をクリックすると閉じる
+     ============================================================ -->
+  <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+
+    <div class="modal-box">
+
+      <!-- 閉じるボタン（×） -->
+      <button class="modal-close" id="modalClose" aria-label="閉じる">&times;</button>
+
+      <!-- モーダルヘッダー -->
+      <div class="modal-header">
+        <span class="modal-brand">LUMEA SHIFT</span>
+        <h2 class="modal-title" id="modalTitle">ご購入手続き</h2>
+        <p class="modal-lead">必要事項をご入力の上、ご注文ください。</p>
+      </div>
+
+      <!-- フォーム本体 -->
+      <!-- onsubmit="return false" → デフォルトの送信（ページ遷移）を止めてJSで処理 -->
+      <form class="modal-form" id="contactForm" onsubmit="return false">
+
+        <!-- ① コース選択 -->
+        <div class="form-group">
+          <label class="form-label">コース選択 <span class="form-required">必須</span></label>
+          <!-- カード型ラジオボタン：視覚的に選びやすくする -->
+          <div class="form-plan-cards">
+
+            <!-- 定期コース（デフォルト選択） -->
+            <label class="form-plan-card" id="planCardSubscribe">
+              <input
+                type="radio"
+                name="plan"
+                value="定期コース（初回 ¥1,980）"
+                class="form-plan-radio"
+                checked
+                onchange="updatePlanCard()"
+              >
+              <div class="form-plan-card-inner">
+                <span class="form-plan-badge">おすすめ</span>
+                <div class="form-plan-name">定期コース</div>
+                <div class="form-plan-price">初回 <strong>¥1,980</strong><span>（税込）</span></div>
+                <div class="form-plan-note">2回目以降 ¥3,480＋送料¥550<br>回数縛りなし・いつでも解約OK</div>
+              </div>
+            </label>
+
+            <!-- 単品購入 -->
+            <label class="form-plan-card" id="planCardOnce">
+              <input
+                type="radio"
+                name="plan"
+                value="単品購入（¥3,980）"
+                class="form-plan-radio"
+                onchange="updatePlanCard()"
+              >
+              <div class="form-plan-card-inner">
+                <div class="form-plan-name">単品購入</div>
+                <div class="form-plan-price"><strong>¥3,980</strong><span>（税込）</span></div>
+                <div class="form-plan-note">送料 ¥550<br>1回限りの購入</div>
+              </div>
+            </label>
+
+          </div>
+        </div>
+
+        <!-- ② お名前 -->
+        <div class="form-group">
+          <label for="formName" class="form-label">お名前 <span class="form-required">必須</span></label>
+          <input
+            type="text"
+            id="formName"
+            name="name"
+            class="form-input"
+            placeholder="山田 花子"
+            required
+            autocomplete="name"
+          >
+        </div>
+
+        <!-- ③ フリガナ -->
+        <div class="form-group">
+          <label for="formKana" class="form-label">フリガナ <span class="form-required">必須</span></label>
+          <input
+            type="text"
+            id="formKana"
+            name="kana"
+            class="form-input"
+            placeholder="ヤマダ ハナコ"
+            required
+            autocomplete="name"
+          >
+        </div>
+
+        <!-- ④ メールアドレス -->
+        <div class="form-group">
+          <label for="formEmail" class="form-label">メールアドレス <span class="form-required">必須</span></label>
+          <input
+            type="email"
+            id="formEmail"
+            name="email"
+            class="form-input"
+            placeholder="example@email.com"
+            required
+            autocomplete="email"
+          >
+        </div>
+
+        <!-- ⑤ 電話番号 -->
+        <div class="form-group">
+          <label for="formPhone" class="form-label">電話番号 <span class="form-required">必須</span></label>
+          <input
+            type="tel"
+            id="formPhone"
+            name="phone"
+            class="form-input"
+            placeholder="090-0000-0000"
+            required
+            autocomplete="tel"
+          >
+        </div>
+
+        <!-- ⑥ 郵便番号 -->
+        <div class="form-group">
+          <label for="formZip" class="form-label">郵便番号 <span class="form-required">必須</span></label>
+          <input
+            type="text"
+            id="formZip"
+            name="zip"
+            class="form-input"
+            placeholder="123-4567"
+            required
+            autocomplete="postal-code"
+            maxlength="8"
+          >
+        </div>
+
+        <!-- ⑦ 住所 -->
+        <div class="form-group">
+          <label for="formAddress" class="form-label">住所 <span class="form-required">必須</span></label>
+          <input
+            type="text"
+            id="formAddress"
+            name="address"
+            class="form-input"
+            placeholder="東京都渋谷区〇〇町1-2-3"
+            required
+            autocomplete="street-address"
+          >
+        </div>
+
+        <!-- ⑧ マンション・部屋番号（任意） -->
+        <div class="form-group">
+          <label for="formAddress2" class="form-label">マンション名・部屋番号 <span class="form-optional">任意</span></label>
+          <input
+            type="text"
+            id="formAddress2"
+            name="address2"
+            class="form-input"
+            placeholder="〇〇マンション 101号室"
+            autocomplete="address-line2"
+          >
+        </div>
+
+        <!-- ⑨ お支払い方法 -->
+        <div class="form-group">
+          <label class="form-label">お支払い方法 <span class="form-required">必須</span></label>
+          <div class="form-radio-group">
+
+            <label class="form-radio-label">
+              <input type="radio" name="payment" value="クレジットカード" class="form-radio" checked>
+              <span class="form-radio-text">💳 クレジットカード</span>
+            </label>
+
+            <label class="form-radio-label">
+              <input type="radio" name="payment" value="代金引換" class="form-radio">
+              <span class="form-radio-text">📦 代金引換（+¥330）</span>
+            </label>
+
+            <label class="form-radio-label">
+              <input type="radio" name="payment" value="コンビニ払い" class="form-radio">
+              <span class="form-radio-text">🏪 コンビニ払い</span>
+            </label>
+
+          </div>
+        </div>
+
+        <!-- ⑩ 備考（任意） -->
+        <div class="form-group">
+          <label for="formNote" class="form-label">備考 <span class="form-optional">任意</span></label>
+          <textarea
+            id="formNote"
+            name="note"
+            class="form-textarea"
+            placeholder="配送に関するご要望など"
+            rows="3"
+          ></textarea>
+        </div>
+
+        <!-- ⑪ 同意チェックボックス -->
+        <div class="form-group form-group--check">
+          <label class="form-check-label">
+            <input type="checkbox" id="formAgree" name="agree" class="form-check" required>
+            <span>
+              <a href="#" class="form-link" target="_blank">特定商取引法に基づく表示</a>・
+              <a href="#" class="form-link" target="_blank">プライバシーポリシー</a>に同意する
+            </span>
+          </label>
+        </div>
+
+        <!-- 送信ボタン -->
+        <button type="submit" class="form-submit" id="formSubmitBtn">
+          <span class="form-submit-text">注文を確定する →</span>
+          <!-- ローディングスピナー（送信中に表示） -->
+          <span class="form-submit-spinner" aria-hidden="true"></span>
+        </button>
+
+        <!-- 安心テキスト -->
+        <p class="form-security-note">🔒 SSL暗号化通信で保護されています</p>
+
+      </form><!-- /.modal-form -->
+
+      <!-- 送信完了メッセージ（送信成功後にJSで表示する） -->
+      <div class="form-success" id="formSuccess">
+        <div class="form-success-icon">✓</div>
+        <h3 class="form-success-title">ご注文ありがとうございます</h3>
+        <p class="form-success-text">
+          ご購入いただきありがとうございます。<br>
+          ご登録のメールアドレスに注文確認メールをお送りしました。<br>
+          発送まで2〜3営業日お待ちください。
+        </p>
+        <button class="form-success-close" onclick="closeModal()">閉じる</button>
+      </div>
+
+      <!-- エラーメッセージ（送信失敗時にJSで表示する） -->
+      <div class="form-error-msg" id="formErrorMsg">
+        <p>送信に失敗しました。時間をおいて再度お試しください。</p>
+      </div>
+
+    </div><!-- /.modal-box -->
+
+  </div><!-- /.modal-overlay -->
+
 
   <!-- フッター -->
   <footer>

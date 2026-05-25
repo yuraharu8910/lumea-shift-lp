@@ -223,17 +223,32 @@
     </div>
   </section>
 
-  <!-- 【変更9】安心バー：③解決セクションの直後に挿入（価格・縛りなし情報を早期表示） -->
+  <!-- 【変更9】安心バー：③解決セクションの直後に挿入 -->
   <section class="trust-bar">
+    <img src="images/image09.png" alt="" class="trust-bar-bg-img">
+    <div class="trust-bar-overlay"></div>
     <div class="trust-bar-inner">
-      <div class="trust-item reveal">
-        <span class="trust-item-price">¥1,980</span>
-        <span class="trust-item-label">初回特別価格（税込）</span>
+
+      <!-- cta-price-boxと同じカード構造 -->
+      <div class="trust-bar-card reveal">
+        <span class="cta-price-label">定期初回特別価格</span>
+        <div class="cta-price-regular">通常価格 ¥3,980（税込）</div>
+        <div class="cta-price-row">
+          <span class="cta-price-yen">¥</span>
+          <span class="cta-price-main">1,980</span>
+          <span style="font-size: 14px; color: rgba(255,255,255,0.5);">税込 / 初回</span>
+        </div>
+        <div class="cta-badges">
+          <span class="cta-badge">回数縛りなし</span>
+          <span class="cta-badge">初回送料無料</span>
+          <span class="cta-badge">いつでも解約OK</span>
+        </div>
+        <div class="cta-price-note">2回目以降 ¥3,480（税込）＋送料 ¥550</div>
       </div>
-      <span class="trust-item-badge reveal reveal--delay-1">回数縛りなし</span>
-      <span class="trust-item-badge reveal reveal--delay-2">初回送料無料</span>
-      <span class="trust-item-badge reveal reveal--delay-3">いつでも解約OK</span>
-      <span class="trust-item-badge reveal reveal--delay-4">次回発送5日前まで解約可</span>
+
+      <!-- cta-btnと同じボタン -->
+      <button onclick="openModal()" class="cta-btn reveal" style="cursor:pointer; border:none; width:100%;">まず1本、試してみる →</button>
+
     </div>
   </section>
 
