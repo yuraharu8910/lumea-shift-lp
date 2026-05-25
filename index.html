@@ -85,7 +85,7 @@
         忙しくても、整える。<br>
         1本で完結するオールインワン美容液。
       </p>
-      <a href="#cta" class="fv-btn">初回 ¥1,980 で試してみる</a>
+      <button onclick="openModal()" class="fv-btn" style="cursor:pointer; border:none; background:none;">初回 ¥1,980 で試してみる</button>
       <!-- 【変更8】ボタン直下に安心テキストを追加（縛りへの恐怖を早期解消） -->
       <p class="fv-btn-note">回数縛りなし・いつでも解約OK</p>
     </div>
@@ -612,15 +612,16 @@
         </div>
         <div class="cta-price-note">2回目以降 ¥3,480（税込）＋送料 ¥550</div>
       </div>
-      <!-- 【変更15】「定期コース…」→「まず1本…」（縛りの連想を回避） -->
-      <a href="#" class="cta-btn reveal">まず1本、試してみる →</a>
-      <a href="#" class="cta-btn-sub reveal">1回だけ購入する（¥3,980）</a>
+      <!-- ボタンクリックでお問い合わせモーダルを開く -->
+      <!-- onclick="openModal()" → script.js の openModal 関数を呼び出す -->
+      <button onclick="openModal()" class="cta-btn reveal" style="cursor:pointer; border:none; width:100%;">まず1本、試してみる →</button>
+      <button onclick="openModal()" class="cta-btn-sub reveal" style="cursor:pointer; border:none; width:100%; background:none;">1回だけ購入する（¥3,980）</button>
     </div>
   </section>
 
   <!-- スマホ固定CTAバー（480px以下のみ表示） -->
   <div class="sticky-cta" id="stickyCta">
-    <a href="#cta" class="sticky-cta-btn">まず1本、試してみる →</a>
+    <button onclick="openModal()" class="sticky-cta-btn" style="cursor:pointer; border:none; width:100%; background:none;">まず1本、試してみる →</button>
     <p class="sticky-cta-note">初回 ¥1,980・回数縛りなし・いつでも解約OK</p>
   </div>
 
@@ -640,10 +641,253 @@
           <span class="sticky-cta-pc-price-num">¥1,980</span>
           <span class="sticky-cta-pc-price-note">回数縛りなし</span>
         </div>
-        <a href="#cta" class="sticky-cta-pc-btn">まず1本、試してみる →</a>
+        <button onclick="openModal()" class="sticky-cta-pc-btn" style="cursor:pointer; border:none;">まず1本、試してみる →</button>
       </div>
     </div>
   </div>
+
+  <!-- ============================================================
+     購入 モーダル（ポップアップフォーム）
+     .modal-overlay をクリックすると閉じる
+     ============================================================ -->
+  <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+
+    <div class="modal-box">
+
+      <!-- 閉じるボタン（×） -->
+      <button class="modal-close" id="modalClose" aria-label="閉じる">&times;</button>
+
+      <!-- モーダルヘッダー -->
+      <div class="modal-header">
+        <span class="modal-brand">LUMEA SHIFT</span>
+        <h2 class="modal-title" id="modalTitle">ご購入手続き</h2>
+        <p class="modal-lead">必要事項をご入力の上、ご注文ください。</p>
+      </div>
+
+      <!-- フォーム本体 -->
+      <!-- onsubmit="return false" → デフォルトの送信（ページ遷移）を止めてJSで処理 -->
+      <form class="modal-form" id="contactForm" onsubmit="return false">
+
+        <!-- ① コース選択 -->
+        <div class="form-group">
+          <label class="form-label">コース選択 <span class="form-required">必須</span></label>
+          <!-- カード型ラジオボタン：視覚的に選びやすくする -->
+          <div class="form-plan-cards">
+
+            <!-- 定期コース（デフォルト選択） -->
+            <label class="form-plan-card" id="planCardSubscribe">
+              <input
+                type="radio"
+                name="plan"
+                value="定期コース（初回 ¥1,980）"
+                class="form-plan-radio"
+                checked
+                onchange="updatePlanCard()"
+              >
+              <div class="form-plan-card-inner">
+                <span class="form-plan-badge">おすすめ</span>
+                <div class="form-plan-name">定期コース</div>
+                <div class="form-plan-price">初回 <strong>¥1,980</strong><span>（税込）</span></div>
+                <div class="form-plan-note">2回目以降 ¥3,480＋送料¥550<br>回数縛りなし・いつでも解約OK</div>
+              </div>
+            </label>
+
+            <!-- 単品購入 -->
+            <label class="form-plan-card" id="planCardOnce">
+              <input
+                type="radio"
+                name="plan"
+                value="単品購入（¥3,980）"
+                class="form-plan-radio"
+                onchange="updatePlanCard()"
+              >
+              <div class="form-plan-card-inner">
+                <div class="form-plan-name">単品購入</div>
+                <div class="form-plan-price"><strong>¥3,980</strong><span>（税込）</span></div>
+                <div class="form-plan-note">送料 ¥550<br>1回限りの購入</div>
+              </div>
+            </label>
+
+          </div>
+        </div>
+
+        <!-- ② お名前 -->
+        <div class="form-group">
+          <label for="formName" class="form-label">お名前 <span class="form-required">必須</span></label>
+          <input
+            type="text"
+            id="formName"
+            name="name"
+            class="form-input"
+            placeholder="山田 花子"
+            required
+            autocomplete="name"
+          >
+        </div>
+
+        <!-- ③ フリガナ -->
+        <div class="form-group">
+          <label for="formKana" class="form-label">フリガナ <span class="form-required">必須</span></label>
+          <input
+            type="text"
+            id="formKana"
+            name="kana"
+            class="form-input"
+            placeholder="ヤマダ ハナコ"
+            required
+            autocomplete="name"
+          >
+        </div>
+
+        <!-- ④ メールアドレス -->
+        <div class="form-group">
+          <label for="formEmail" class="form-label">メールアドレス <span class="form-required">必須</span></label>
+          <input
+            type="email"
+            id="formEmail"
+            name="email"
+            class="form-input"
+            placeholder="example@email.com"
+            required
+            autocomplete="email"
+          >
+        </div>
+
+        <!-- ⑤ 電話番号 -->
+        <div class="form-group">
+          <label for="formPhone" class="form-label">電話番号 <span class="form-required">必須</span></label>
+          <input
+            type="tel"
+            id="formPhone"
+            name="phone"
+            class="form-input"
+            placeholder="090-0000-0000"
+            required
+            autocomplete="tel"
+          >
+        </div>
+
+        <!-- ⑥ 郵便番号 -->
+        <div class="form-group">
+          <label for="formZip" class="form-label">郵便番号 <span class="form-required">必須</span></label>
+          <input
+            type="text"
+            id="formZip"
+            name="zip"
+            class="form-input"
+            placeholder="123-4567"
+            required
+            autocomplete="postal-code"
+            maxlength="8"
+          >
+        </div>
+
+        <!-- ⑦ 住所 -->
+        <div class="form-group">
+          <label for="formAddress" class="form-label">住所 <span class="form-required">必須</span></label>
+          <input
+            type="text"
+            id="formAddress"
+            name="address"
+            class="form-input"
+            placeholder="東京都渋谷区〇〇町1-2-3"
+            required
+            autocomplete="street-address"
+          >
+        </div>
+
+        <!-- ⑧ マンション・部屋番号（任意） -->
+        <div class="form-group">
+          <label for="formAddress2" class="form-label">マンション名・部屋番号 <span class="form-optional">任意</span></label>
+          <input
+            type="text"
+            id="formAddress2"
+            name="address2"
+            class="form-input"
+            placeholder="〇〇マンション 101号室"
+            autocomplete="address-line2"
+          >
+        </div>
+
+        <!-- ⑨ お支払い方法 -->
+        <div class="form-group">
+          <label class="form-label">お支払い方法 <span class="form-required">必須</span></label>
+          <div class="form-radio-group">
+
+            <label class="form-radio-label">
+              <input type="radio" name="payment" value="クレジットカード" class="form-radio" checked>
+              <span class="form-radio-text">💳 クレジットカード</span>
+            </label>
+
+            <label class="form-radio-label">
+              <input type="radio" name="payment" value="代金引換" class="form-radio">
+              <span class="form-radio-text">📦 代金引換（+¥330）</span>
+            </label>
+
+            <label class="form-radio-label">
+              <input type="radio" name="payment" value="コンビニ払い" class="form-radio">
+              <span class="form-radio-text">🏪 コンビニ払い</span>
+            </label>
+
+          </div>
+        </div>
+
+        <!-- ⑩ 備考（任意） -->
+        <div class="form-group">
+          <label for="formNote" class="form-label">備考 <span class="form-optional">任意</span></label>
+          <textarea
+            id="formNote"
+            name="note"
+            class="form-textarea"
+            placeholder="配送に関するご要望など"
+            rows="3"
+          ></textarea>
+        </div>
+
+        <!-- ⑪ 同意チェックボックス -->
+        <div class="form-group form-group--check">
+          <label class="form-check-label">
+            <input type="checkbox" id="formAgree" name="agree" class="form-check" required>
+            <span>
+              <a href="#" class="form-link" target="_blank">特定商取引法に基づく表示</a>・
+              <a href="#" class="form-link" target="_blank">プライバシーポリシー</a>に同意する
+            </span>
+          </label>
+        </div>
+
+        <!-- 送信ボタン -->
+        <button type="submit" class="form-submit" id="formSubmitBtn">
+          <span class="form-submit-text">注文を確定する →</span>
+          <!-- ローディングスピナー（送信中に表示） -->
+          <span class="form-submit-spinner" aria-hidden="true"></span>
+        </button>
+
+        <!-- 安心テキスト -->
+        <p class="form-security-note">🔒 SSL暗号化通信で保護されています</p>
+
+      </form><!-- /.modal-form -->
+
+      <!-- 送信完了メッセージ（送信成功後にJSで表示する） -->
+      <div class="form-success" id="formSuccess">
+        <div class="form-success-icon">✓</div>
+        <h3 class="form-success-title">ご注文ありがとうございます</h3>
+        <p class="form-success-text">
+          ご購入いただきありがとうございます。<br>
+          ご登録のメールアドレスに注文確認メールをお送りしました。<br>
+          発送まで2〜3営業日お待ちください。
+        </p>
+        <button class="form-success-close" onclick="closeModal()">閉じる</button>
+      </div>
+
+      <!-- エラーメッセージ（送信失敗時にJSで表示する） -->
+      <div class="form-error-msg" id="formErrorMsg">
+        <p>送信に失敗しました。時間をおいて再度お試しください。</p>
+      </div>
+
+    </div><!-- /.modal-box -->
+
+  </div><!-- /.modal-overlay -->
+
 
   <!-- フッター -->
   <footer>
