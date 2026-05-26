@@ -895,12 +895,14 @@
         <!-- ⑪ 同意チェックボックス -->
         <div class="form-group form-group--check">
           <label class="form-check-label">
-            <input type="checkbox" id="formAgree" name="agree" class="form-check" required>
+            <input type="checkbox" id="formAgree" name="agree" class="form-check">
             <span>
               <a href="#" class="form-link" target="_blank">特定商取引法に基づく表示</a>・
               <a href="#" class="form-link" target="_blank">プライバシーポリシー</a>に同意する
             </span>
           </label>
+          <!-- 同意チェックのエラーメッセージ（JSで表示制御） -->
+          <span class="agree-error" id="agreeError">同意のチェックをしてください</span>
         </div>
 
         <!-- 送信ボタン -->

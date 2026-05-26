@@ -221,10 +221,145 @@ document.addEventListener('keydown', (e) => {
 });
 
 
+// ============================================================
+// バリデーション（入力チェック）機能
+// ============================================================
+
+// ---- エラーメッセージを表示する関数 ----
+// id：入力欄のid、msg：エラー文言（空文字でエラー解除）
+function showError(id, msg) {
+  const input = document.getElementById(id);
+  if (!input) return;
+
+  // 既存のエラー表示を探す（input の次の兄弟要素）
+  let errorEl = input.nextElementSibling;
+
+  // エラー表示用の<span>がなければ作る
+  if (!errorEl || !errorEl.classList.contains('input-error')) {
+    errorEl = document.createElement('span');
+    errorEl.classList.add('input-error');
+    input.parentNode.insertBefore(errorEl, input.nextSibling);
+  }
+
+  if (msg) {
+    // エラーあり：赤枠＋メッセージ表示
+    input.classList.add('input-invalid');
+    errorEl.textContent = msg;
+    errorEl.style.display = 'block';
+  } else {
+    // エラーなし：リセット
+    input.classList.remove('input-invalid');
+    errorEl.textContent = '';
+    errorEl.style.display = 'none';
+  }
+}
+
+// ---- 各フィールドのバリデーションルール ----
+// 戻り値：エラーメッセージ文字列（問題なければ空文字）
+const validators = {
+
+  // お名前：未入力チェック
+  formName: (v) => v ? '' : 'お名前を入力してください',
+
+  // フリガナ：カタカナ・スペースのみ許可
+  // /^[ァ-ヶー\s　]+$/ ← カタカナと全角・半角スペースのみOK
+  formKana: (v) => {
+    if (!v) return 'フリガナを入力してください';
+    if (!/^[ァ-ヶー\s　]+$/.test(v)) return 'カタカナで入力してください';
+    return '';
+  },
+
+  // メールアドレス：形式チェック
+  // /^[^\s@]+@[^\s@]+\.[^\s@]+$/ ← 「文字@文字.文字」の形式
+  formEmail: (v) => {
+    if (!v) return 'メールアドレスを入力してください';
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return '正しいメールアドレスを入力してください';
+    return '';
+  },
+
+  // 電話番号：数字とハイフンのみ・10〜13桁
+  formPhone: (v) => {
+    if (!v) return '電話番号を入力してください';
+    // ハイフンを除いた数字が10〜11桁かチェック
+    const digits = v.replace(/-/g, '');
+    if (!/^\d{10,11}$/.test(digits)) return '正しい電話番号を入力してください（例：090-0000-0000）';
+    return '';
+  },
+
+  // 郵便番号：000-0000 または 0000000 形式
+  formZip: (v) => {
+    if (!v) return '郵便番号を入力してください';
+    if (!/^\d{3}-?\d{4}$/.test(v)) return '正しい郵便番号を入力してください（例：123-4567）';
+    return '';
+  },
+
+  // 住所：未入力チェック
+  formAddress: (v) => v ? '' : '住所を入力してください',
+};
+
+// ---- 入力欄からフォーカスが外れたときにリアルタイムチェック ----
+// 'blur'イベント：入力欄から離れたときに発火
+if (contactForm) {
+  Object.keys(validators).forEach(id => {
+    const input = document.getElementById(id);
+    if (!input) return;
+
+    // フォーカスが外れたときにチェック
+    input.addEventListener('blur', () => {
+      const msg = validators[id](input.value.trim());
+      showError(id, msg);
+    });
+
+    // 入力中にエラーが出ていたらリアルタイムで解除
+    input.addEventListener('input', () => {
+      const msg = validators[id](input.value.trim());
+      showError(id, msg);
+    });
+  });
+}
+
+// ---- 全フィールドをまとめてチェックする関数 ----
+// 戻り値：エラーがあれば false、全部OKなら true
+function validateAll() {
+  let isValid = true;
+
+  // テキスト入力欄のチェック
+  Object.keys(validators).forEach(id => {
+    const input = document.getElementById(id);
+    if (!input) return;
+    const msg = validators[id](input.value.trim());
+    showError(id, msg);
+    if (msg) isValid = false;
+  });
+
+  // 同意チェックボックスのチェック
+  const agreeEl = document.getElementById('formAgree');
+  const agreeError = document.getElementById('agreeError');
+  if (agreeEl && !agreeEl.checked) {
+    if (agreeError) agreeError.style.display = 'block';
+    isValid = false;
+  } else {
+    if (agreeError) agreeError.style.display = 'none';
+  }
+
+  return isValid;
+}
+
+
 // ---- フォーム送信処理（購入フォーム版） ----
 if (contactForm) {
   contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
+
+    // ---- バリデーション実行（全項目チェック） ----
+    if (!validateAll()) {
+      // エラーがある場合：最初のエラー欄までスクロール
+      const firstError = contactForm.querySelector('.input-invalid');
+      if (firstError) {
+        firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      return; // 送信を止める
+    }
 
     // ---- 入力値を取得 ----
     const plan = document.querySelector('.form-plan-radio:checked')?.value || '';
@@ -239,12 +374,6 @@ if (contactForm) {
     const note = document.getElementById('formNote').value.trim();
     const agree = document.getElementById('formAgree').checked ? '同意済み' : '';
 
-    // 必須チェック
-    if (!plan || !name || !kana || !email || !phone || !zip || !address || !payment || !agree) {
-      alert('必須項目をすべて入力し、同意チェックをしてください。');
-      return;
-    }
-
     // 送信中状態にする
     formSubmitBtn.classList.add('sending');
     formErrorMsg.classList.remove('visible');
@@ -253,7 +382,7 @@ if (contactForm) {
     try {
       await fetch(GAS_URL, {
         method: 'POST',
-        mode: 'no-cors',   // GASのCORS制限を回避（no-corsではレスポンスは読めないが送信は成功する）
+        mode: 'no-cors',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           plan, name, kana, email, phone,
@@ -261,7 +390,6 @@ if (contactForm) {
         })
       });
 
-      // no-cors モードではエラーが出なければ成功とみなす
       showSuccess();
 
     } catch (error) {
