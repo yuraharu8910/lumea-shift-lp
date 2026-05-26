@@ -832,6 +832,7 @@ section {
   border: 1px solid rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(8px);
   background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-md); /* 角丸を追加 */
   transition: all 0.3s ease;
 }
 
@@ -1430,6 +1431,7 @@ section {
   border: 1px solid rgba(212, 191, 163, 0.3);
   padding: 36px;
   margin-bottom: 36px;
+  border-radius: var(--radius-md); /* 角丸を追加 */
 }
 
 .cta-price-label {
