@@ -60,13 +60,13 @@ function toggleIngredients(btn) {
 // スマホ固定CTAバーの表示制御
 // FVのボタンが消えたら表示、CTAセクション到達で非表示
 // ============================================
-const stickyCta  = document.getElementById('stickyCta');
-const fvBtn      = document.querySelector('.fv-btn');
+const stickyCta = document.getElementById('stickyCta');
+const fvBtn = document.querySelector('.fv-btn');
 const ctaSection = document.getElementById('cta');
 
 if (stickyCta && fvBtn && ctaSection) {
-  let fvBtnVisible  = true;
-  let ctaVisible    = false;
+  let fvBtnVisible = true;
+  let ctaVisible = false;
 
   function updateStickyVisibility() {
     if (!fvBtnVisible && !ctaVisible) {
@@ -107,7 +107,7 @@ const stickyCtaPc = document.getElementById('stickyCtaPc');
 // SP版と同じ fvBtn・ctaSection を再利用
 if (stickyCtaPc && fvBtn && ctaSection) {
   let fvBtnVisiblePc = true; // FVボタンが見えているか
-  let ctaVisiblePc   = false; // CTAセクションが見えているか
+  let ctaVisiblePc = false; // CTAセクションが見えているか
 
   // 表示・非表示を切り替える関数
   function updateStickyPcVisibility() {
@@ -148,17 +148,17 @@ if (stickyCtaPc && fvBtn && ctaSection) {
 // ============================================================
 
 // ▼▼▼ GASのWebアプリURLをここに貼り付けてください ▼▼▼
-const GAS_URL = 'https://script.google.com/macros/s/ここにGASのURLを貼り付け/exec';
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbzQ3Z3401zVdpH5bLiynbpq-J6Fz49syTChj27rTcjO7giDy3ElF22xBmT1cqYiMko/exec';
 // ▲▲▲ ここまで変更してください ▲▲▲
 
 
 // ---- DOM要素の取得 ----
-const modalOverlay  = document.getElementById('modalOverlay');
-const modalClose    = document.getElementById('modalClose');
-const contactForm   = document.getElementById('contactForm');
+const modalOverlay = document.getElementById('modalOverlay');
+const modalClose = document.getElementById('modalClose');
+const contactForm = document.getElementById('contactForm');
 const formSubmitBtn = document.getElementById('formSubmitBtn');
-const formSuccess   = document.getElementById('formSuccess');
-const formErrorMsg  = document.getElementById('formErrorMsg');
+const formSuccess = document.getElementById('formSuccess');
+const formErrorMsg = document.getElementById('formErrorMsg');
 
 
 // ---- モーダルを開く ----
@@ -227,17 +227,17 @@ if (contactForm) {
     e.preventDefault();
 
     // ---- 入力値を取得 ----
-    const plan     = document.querySelector('.form-plan-radio:checked')?.value || '';
-    const name     = document.getElementById('formName').value.trim();
-    const kana     = document.getElementById('formKana').value.trim();
-    const email    = document.getElementById('formEmail').value.trim();
-    const phone    = document.getElementById('formPhone').value.trim();
-    const zip      = document.getElementById('formZip').value.trim();
-    const address  = document.getElementById('formAddress').value.trim();
+    const plan = document.querySelector('.form-plan-radio:checked')?.value || '';
+    const name = document.getElementById('formName').value.trim();
+    const kana = document.getElementById('formKana').value.trim();
+    const email = document.getElementById('formEmail').value.trim();
+    const phone = document.getElementById('formPhone').value.trim();
+    const zip = document.getElementById('formZip').value.trim();
+    const address = document.getElementById('formAddress').value.trim();
     const address2 = document.getElementById('formAddress2').value.trim();
-    const payment  = document.querySelector('input[name="payment"]:checked')?.value || '';
-    const note     = document.getElementById('formNote').value.trim();
-    const agree    = document.getElementById('formAgree').checked ? '同意済み' : '';
+    const payment = document.querySelector('input[name="payment"]:checked')?.value || '';
+    const note = document.getElementById('formNote').value.trim();
+    const agree = document.getElementById('formAgree').checked ? '同意済み' : '';
 
     // 必須チェック
     if (!plan || !name || !kana || !email || !phone || !zip || !address || !payment || !agree) {
